@@ -1,0 +1,71 @@
+
+$coffee: #BF9D7D !default;
+$green: #52DD7E !default;
+$blue: #3BADEF !default;
+$red: #DA3E51 !default;
+$black: #000 !default;
+$white: #fff !default;
+
+$theme-colors: (
+    "primary": $coffee,
+    "success": $green,
+    "info": $blue
+) !default;
+
+$primary-120: #7B6651 !default;
+$primary-80: #D0B79F !default;
+$primary-60: #E1D1C2 !default;
+$primary-40: #F1EAE4 !default;
+$primary-10: #F7F2EE !default;
+$primary-tint: #FAF7F5 !default;
+$success-120: #299F65 !default;
+$success-20: #BCFBBD !default;
+$success-10: #E8FEE7 !default;
+$info-120: #1D66AC !default;
+$info-20: #B1EFFD !default;
+$info-10: #E6FBFE !default;
+$error-120: #C22538 !default;
+$error: $red !default;
+$error-20: #F5CCD1 !default;
+$error-10: #FDECEF !default;
+
+$custom-colors: (
+    "primary-120": $primary-120,
+    "primary-80": $primary-80,
+    "primary-60": $primary-60,
+    "primary-40": $primary-40,
+    "primary-10": $primary-10,
+    "primary-tint": $primary-tint,
+    "success-120": $success-120,
+    "success-20": $success-20,
+    "success-10": $success-10,
+    "info-120": $info-120,
+    "info-20": $info-20,
+    "info-10": $info-10,
+    "error-120": $error-120,
+    "error": $error,
+    "error-20": $error-20,
+    "error-10": $error-10,
+) !default;
+
+$neutral-bg: #140F0A;
+$neutral: $black;
+$neutral-80: #4B4B4B;
+$neutral-60: #909090;
+$neutral-40: #ECECEC;
+$neutral-10: #F9F9F9;
+$neutral-0: $white;
+
+$neutral-colors: (
+    "neutral-bg": $neutral-bg,
+    "neutral": $neutral,
+    "neutral-80": $neutral-80,
+    "neutral-60": $neutral-60,
+    "neutral-40": $neutral-40,
+    "neutral-10": $neutral-10,
+    "neutral-0": $neutral-0,
+) !default;
+
+$all-custom-colors: map-merge($custom-colors, $neutral-colors);
+$theme-colors: map-merge($theme-colors, $all-custom-colors);
+$theme-colors: map-remove($theme-colors, "secondary", "warning", "danger", "light");

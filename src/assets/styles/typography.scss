@@ -1,0 +1,39 @@
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+*[class*="display-"] {
+    letter-spacing: 0.05em;
+    color: $neutral;
+}
+
+%text {
+    color: inherit;
+    letter-spacing: 0.02em;
+    line-height: $line-height-base;
+}
+
+.text-{
+    &title, &subtitle {
+        @extend %text;
+        font-weight: $headings-font-weight;
+    }
+    
+    &title,
+    &body {
+        font-size: $font-size-base;
+    }
+    
+    &body, &body2, &tiny {
+        @extend %text;
+        font-weight: $font-weight-base;
+    }
+
+    &subtitle,
+    &body2 {
+        font-size: 0.875rem;
+    }
+
+    &tiny {
+        font-size: 0.75rem;
+    }
+}
