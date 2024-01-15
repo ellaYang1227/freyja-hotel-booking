@@ -1,16 +1,11 @@
 <script setup lang="ts">
 import { logo } from "@/data/imagePaths";
 const { VITE_COMPANY_NAME } = import.meta.env; 
-// import { ref } from 'vue'
-
-// defineProps<{ msg: string }>()
-
-// const count = ref(0)
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <div class="container-fluid">
+    <div class="container-fluid py-4 py-lg-6 px-xl-12">
         <RouterLink class="navbar-brand" to="/user/edit">
             <img :src="logo" :alt="VITE_COMPANY_NAME" />
         </RouterLink>
@@ -19,8 +14,9 @@ const { VITE_COMPANY_NAME } = import.meta.env;
         </button>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
             <div class="offcanvas-body d-flex align-items-center">
+                <button class="btn-close d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"></button>
                 <div class="collapse navbar-collapse show">
-                    <ul class="navbar-nav ms-auto align-items-md-center gap-4">
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-4 text-center">
                         <li class="nav-item">
                             <RouterLink class="nav-link" to="/rooms">客房旅宿</RouterLink>
                         </li>
@@ -34,22 +30,12 @@ const { VITE_COMPANY_NAME } = import.meta.env;
                 </div>
             </div>
         </div>
-        
     </div>
   </nav>
 </template>
 
 <style lang="scss">
 .navbar {
-    .container-fluid {
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
-
-        @include media-breakpoint-up(xl) {
-            padding: 1.5rem 5rem;
-        }
-    }
-    
     .navbar-brand {
         img {
             width: 100%;
@@ -60,11 +46,6 @@ const { VITE_COMPANY_NAME } = import.meta.env;
             }
         }
     }
-
-    // .navbar-toggler {
-    //     color: $white;
-
-    // }
 
     .nav-link {
         color: $white !important;
@@ -77,6 +58,12 @@ const { VITE_COMPANY_NAME } = import.meta.env;
         &.active  {
             cursor: default;
         }
+    }
+
+    .btn-close {
+        position: absolute;
+        top: $offcanvas-padding-y;
+        right: $offcanvas-padding-y;
     }
 }
 </style>

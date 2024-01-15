@@ -3,7 +3,7 @@
 
 <template>
     <div class="bg-white">
-        <div class="container-fluid d-grid gap-5">
+        <div class="container-fluid d-grid gap-6">
             <div>
                 <h1 class="px-2 text-white bg-primary text-uppercase">Color System</h1>
                 <div class="d-grid gap-3 my-3">

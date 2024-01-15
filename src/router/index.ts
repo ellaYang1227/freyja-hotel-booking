@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import AuthStore from "@/stores/AuthStore";
 import routes from "@/router/routes";
-const { VITE_COMPANY_NAME } = import.meta.env;
+import { beforeEach } from "@/router/routerGuard";
 
 // 始终滚动到顶部
 // const scrollBehavior = (to, from, savedPosition) => {
@@ -24,25 +23,6 @@ const router = createRouter({
     //scrollBehavior
 });
 
-router.beforeEach((to, from, next) => {
-    let { title } = to.meta;
-    const { path } = to;
-
-    if (title) {
-        if (path.indexOf("/admin") > -1) {
-            title = `後台管理 - ${title}`;
-        } else if (path.indexOf("/member") > -1) {
-            title = `會員專區 - ${title}`;
-        }
-
-        title = `${title} - `;
-    }
-
-    document.title = `${title ? title : ""}${path.indexOf("/activity") === -1 ? VITE_COMPANY_NAME : ""}`;
-
-    // const { getStorageUser } = AuthStore();
-    // getStorageUser();
-    next();
-});
+router.beforeEach(beforeEach);
 
 export default router;

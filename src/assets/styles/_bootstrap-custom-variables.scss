@@ -408,14 +408,15 @@ $spacers: (
     2: $spacer * 0.5,
     3: $spacer * 0.75,
     4: $spacer,
-    5: $spacer * 1.5,
-    6: $spacer * 2,
-    7: $spacer * 2.5,
-    8: $spacer * 3,
-    9: $spacer * 3.75,
-    10: $spacer * 4.5,
-    11: $spacer * 5,
-    12: $spacer * 7.5,
+    5: $spacer * 1.25,
+    6: $spacer * 1.5,
+    7: $spacer * 2,
+    8: $spacer * 2.5,
+    9: $spacer * 3,
+    10: $spacer * 3.75,
+    11: $spacer * 4.5,
+    12: $spacer * 5,
+    13: $spacer * 7.5,
 ) !default;
 // scss-docs-end spacer-variables-maps
 
@@ -1703,14 +1704,14 @@ $spinner-border-width-sm: 0.2em !default;
 // Close
 
 // scss-docs-start close-variables
-$btn-close-width: 1em !default;
+$btn-close-width: 1.75rem !default;
 $btn-close-height: $btn-close-width !default;
-$btn-close-padding-x: 0.25em !default;
+$btn-close-padding-x: 1.125rem !default;
 $btn-close-padding-y: $btn-close-padding-x !default;
-$btn-close-color: $black !default;
+$btn-close-color: $white !default;
 $btn-close-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>") !default;
 $btn-close-focus-shadow: $focus-ring-box-shadow !default;
-$btn-close-opacity: 0.5 !default;
+$btn-close-opacity: 1 !default;
 $btn-close-hover-opacity: 0.75 !default;
 $btn-close-focus-opacity: 1 !default;
 $btn-close-disabled-opacity: 0.25 !default;
@@ -1720,8 +1721,8 @@ $btn-close-white-filter: invert(1) grayscale(100%) brightness(200%) !default;
 // Offcanvas
 
 // scss-docs-start offcanvas-variables
-$offcanvas-padding-y: $modal-inner-padding !default;
-$offcanvas-padding-x: $modal-inner-padding !default;
+$offcanvas-padding-y: 1.25rem !default;
+$offcanvas-padding-x: $offcanvas-padding-y !default;
 $offcanvas-horizontal-width: 100vw !default;
 $offcanvas-vertical-height: 30vh !default;
 $offcanvas-transition-duration: 0.3s !default;

@@ -1,19 +1,20 @@
 export default [
     {
-        path: "/guideline",
-        name: "guideline",
-        component: () => import("@/views/GuidelineView.vue"),
-        meta: { title: "Guideline" }
-    },
-    {
         path: "/",
         component: () => import("@/views/member/MemberLayoutView.vue"),
         meta: { isGuestGuard: true },
         children: [{
-            path: "/login",
+            path: "",
+            redirect: "/login"
+        }, {
+            path: "login",
             name: "login",
             component: () => import("@/views/member/LoginView.vue"),
             meta: { title: "登入" }
+        }, {
+            // 重新導向
+            path: "/:pathMatch(.*)*",
+            redirect: "/login"
         }]
     },
     {
@@ -21,13 +22,13 @@ export default [
         component: () => import("@/views/user/UserLayoutView.vue"),
         meta: { isAuthGuard: true },
         children: [{
-            path: "/edit",
+            path: "edit",
             name: "edit",
             component: () => import("@/views/user/EditView.vue"),
             meta: { title: "修改個人資料" }
         },
         {
-            path: "/orders",
+            path: "orders",
             name: "orders",
             component: () => import("@/views/user/OrdersView.vue"),
             meta: { title: "訂單列表" }
@@ -36,6 +37,12 @@ export default [
             path: "/:pathMatch(.*)*",
             redirect: "/user/edit"
         }]
+    },
+    {
+        path: "/guideline",
+        name: "guideline",
+        component: () => import("@/views/GuidelineView.vue"),
+        meta: { title: "Guideline" }
     },
     {
         // 重新導向
