@@ -22,7 +22,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import '@/assets/styles/bootstrap-custom-variables.scss';`,
+        additionalData: `@import '@/assets/styles/all-custom.scss';`,
       },
     },
   }

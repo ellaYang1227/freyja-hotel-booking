@@ -1,15 +1,15 @@
 
-$coffee: #BF9D7D !default;
+$blue: #BF9D7D !default;
 $green: #52DD7E !default;
-$blue: #3BADEF !default;
+$cyan: #3BADEF !default;
 $red: #DA3E51 !default;
 $black: #000 !default;
 $white: #fff !default;
 
 $theme-colors: (
-    "primary": $coffee,
+    "primary": $blue,
     "success": $green,
-    "info": $blue
+    "info": $cyan
 ) !default;
 
 $primary-120: #7B6651 !default;

@@ -2,13 +2,13 @@
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6,
 *[class*="display-"] {
-    letter-spacing: 0.05em;
+    letter-spacing: $custom-headings-letter-spacing;
     color: $neutral;
 }
 
 %text {
     color: inherit;
-    letter-spacing: 0.02em;
+    letter-spacing: $custom-font-letter-spacing-base;
     line-height: $line-height-base;
 }
 

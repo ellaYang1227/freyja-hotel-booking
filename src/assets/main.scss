@@ -1,17 +1,19 @@
-//@import "bootstrap/scss/functions";
-@import "./styles/bootstrap-custom-variables";
-@import "./styles/typography";
-// @import "bootstrap/scss/variables-dark";
-// @import "bootstrap/scss/maps";
-// @import "bootstrap/scss/mixins";
-// @import "bootstrap/scss/root";
-// @import "./styles/bootstrap-custom-utilities";
-// @import "./styles/bootstrap-custom-reboot";
+@import "./styles/all-custom";
 @import "bootstrap/scss/bootstrap";
+@import "./styles/typography";
+@import "./styles/btn";
 
+/*
+* ==========================================================================
+* 共用 bootstrap
+* ==========================================================================
+*/
 
 /*
 * ==========================================================================
 * 共用
 * ==========================================================================
 */
+body {
+    letter-spacing: $custom-font-letter-spacing-base;
+}
