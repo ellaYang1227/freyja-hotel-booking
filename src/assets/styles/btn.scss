@@ -16,3 +16,13 @@
         }
     }
 }
+
+button.btn-link {
+    padding: 0;
+    border-width: 0;
+}
+
+button.btn-link,
+a {
+    font-weight: $btn-font-weight;
+}
