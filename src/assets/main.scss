@@ -9,11 +9,30 @@
 * ==========================================================================
 */
 
+.form-control {
+    &.is-invalid {
+        padding-right: $input-btn-padding-x;
+    }
+}
+
+.invalid-feedback {
+    margin-top: 0;
+    font-weight: 700;
+}
+
 /*
 * ==========================================================================
 * 共用
 * ==========================================================================
 */
+
 body {
     letter-spacing: $custom-font-letter-spacing-base;
+}
+
+// 防止圖片變形
+img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }

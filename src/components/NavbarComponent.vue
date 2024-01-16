@@ -4,7 +4,7 @@ const { VITE_COMPANY_NAME } = import.meta.env;
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-neutral-bg">
     <div class="container-fluid py-4 py-lg-6 px-xl-12">
         <RouterLink class="navbar-brand" to="/user/edit">
             <img :src="logo" :alt="VITE_COMPANY_NAME" />
@@ -67,3 +67,4 @@ const { VITE_COMPANY_NAME } = import.meta.env;
     }
 }
 </style>
+@/data/ImagePaths
