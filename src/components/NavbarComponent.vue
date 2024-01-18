@@ -1,10 +1,23 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
+import { ref, watch  } from "vue";
+
 import { logo } from "@/data/imagePaths";
-const { VITE_COMPANY_NAME } = import.meta.env; 
+const { VITE_COMPANY_NAME } = import.meta.env;
+
+// 取得 routeName
+const route = useRoute();
+const routeName = ref<undefined | string>(undefined);
+watch<any, any>(
+    () => route.name,
+    (newVal: string | undefined): void => {
+        routeName.value = newVal;
+    }
+);
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-neutral-bg">
     <div class="container-fluid py-4 py-lg-6 px-xl-12">
         <RouterLink class="navbar-brand" to="/user/edit">
             <img :src="logo" :alt="VITE_COMPANY_NAME" />
@@ -12,7 +25,7 @@ const { VITE_COMPANY_NAME } = import.meta.env;
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" :class="{'d-lg-none': routeName === 'login' || routeName === 'register'}">
             <div class="offcanvas-body d-flex align-items-center">
                 <button class="btn-close d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"></button>
                 <div class="collapse navbar-collapse show">
@@ -67,3 +80,4 @@ const { VITE_COMPANY_NAME } = import.meta.env;
     }
 }
 </style>
+@/data/ImagePaths

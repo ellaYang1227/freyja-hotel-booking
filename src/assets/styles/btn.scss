@@ -1,18 +1,40 @@
 .btn {
     &.btn-primary {
         color: $white;
-        border-width: 0;
 
         &:hover {
             color: $white;
+            border-color: $primary-120;
             background-color: $primary-120;
         }
+    }
 
+    &.btn-outline-primary {
+        &:hover {
+            color: $primary-120;
+            border-color: $primary-120;
+            background-color: $primary-10;
+        }
+    }
+
+    &.btn-primary,
+    &.btn-outline-primary {
         &:disabled,
         &.disabled,
         fieldset:disabled & {
             color: $neutral-60;
+            border-color: $neutral-60;
             background-color: $neutral-40;
         }
     }
+}
+
+button.btn-link {
+    padding: 0;
+    border-width: 0;
+}
+
+button.btn-link,
+a {
+    font-weight: $btn-font-weight;
 }

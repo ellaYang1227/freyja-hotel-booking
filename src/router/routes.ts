@@ -12,6 +12,11 @@ export default [
             component: () => import("@/views/member/LoginView.vue"),
             meta: { title: "登入" }
         }, {
+            path: "register",
+            name: "register",
+            component: () => import("@/views/member/RegisterView.vue"),
+            meta: { title: "註冊" }
+        }, {
             // 重新導向
             path: "/:pathMatch(.*)*",
             redirect: "/login"
