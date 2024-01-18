@@ -15,6 +15,22 @@
             background-color: $neutral-40;
         }
     }
+
+    &.btn-outline-primary {
+        &:hover {
+            color: $primary-120;
+            border-color: $primary-120;
+            background-color: $primary-10;
+        }
+
+        &:disabled,
+        &.disabled,
+        fieldset:disabled & {
+            color: $neutral-60;
+            border-color: $neutral-60;
+            background-color: $neutral-40;
+        }
+    }
 }
 
 button.btn-link {

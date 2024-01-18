@@ -5,10 +5,17 @@ import { object, string } from 'zod';
 import { ref } from "vue";
 import { formSchema } from "@/data/FormSchema";
 import { LoginForm } from "@/interfaces/UserForm";
+import AuthStore from "@/stores/AuthStore";
+import LoadingStore from "@/stores/LoadingStore";
+import UserStore from "@/stores/UserStore";
 
+const { getStorageSpecifyData, setStorageSpecifyData, removeStorageSpecifyData } = AuthStore();
+const { showLoading, hideLoading } = LoadingStore();
+hideLoading();
+const { login } = UserStore();
 const { emailSchema, passwordSchema } = formSchema;
 const formValues = ref<LoginForm>({
-    email: "",
+    email: getStorageSpecifyData('email') || "",
     password: ""
 });
 const checkedRememberEmail = ref<boolean>(false);
@@ -20,15 +27,24 @@ const { errors, values, meta } = useForm({
         .min(1, `請輸入${emailSchema.label}`),
         password: string()
         .min(1, `請輸入${passwordSchema.label}`)
-        .regex(/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/, `${passwordSchema.label}為必填，至少 8 碼以上英數混合`)
+        //.regex(/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/, `${passwordSchema.label}為必填，至少 8 碼以上英數混合`)
     })),
 });
 
 const { value: email } = useField('email');
 const { value: password } = useField('password');
 
-function onSubmit() {
-    console.log(values, checkedRememberEmail.value)
+async function onSubmit() {
+    showLoading();
+    if(checkedRememberEmail.value) {
+        setStorageSpecifyData('email', values.email as string);
+    } else {
+        removeStorageSpecifyData('email');
+    }
+
+    const res = await login(values as LoginForm);
+    hideLoading();
+    console.log(values, checkedRememberEmail.value, res)
 }
 </script>
 
