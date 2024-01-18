@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { Form, Field, useForm, useField } from "vee-validate";
-import { toTypedSchema } from '@vee-validate/zod';
-import { object, string } from 'zod';
+import { toTypedSchema } from "@vee-validate/zod";
+import { object, string } from "zod";
 import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { formSchema } from "@/data/FormSchema";
 import { LoginForm } from "@/interfaces/UserForm";
 import AuthStore from "@/stores/AuthStore";
@@ -11,29 +12,30 @@ import UserStore from "@/stores/UserStore";
 
 const { getStorageSpecifyData, setStorageSpecifyData, removeStorageSpecifyData } = AuthStore();
 const { showLoading, hideLoading } = LoadingStore();
-hideLoading();
 const { login } = UserStore();
 const { emailSchema, passwordSchema } = formSchema;
-const formValues = ref<LoginForm>({
-    email: getStorageSpecifyData('email') || "",
-    password: ""
-});
 const checkedRememberEmail = ref<boolean>(false);
 
 const { errors, values, meta } = useForm({
+    initialValues: {
+        email: getStorageSpecifyData('email') || "",
+        password: "",
+    },
     validationSchema: toTypedSchema(object({
         email: string()
         .email(`${emailSchema.label}格式錯誤`)
         .min(1, `請輸入${emailSchema.label}`),
         password: string()
         .min(1, `請輸入${passwordSchema.label}`)
-        //.regex(/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/, `${passwordSchema.label}為必填，至少 8 碼以上英數混合`)
     })),
 });
 
 const { value: email } = useField('email');
 const { value: password } = useField('password');
+hideLoading();
 
+const router = useRouter();
+const route = useRoute();
 async function onSubmit() {
     showLoading();
     if(checkedRememberEmail.value) {
@@ -42,14 +44,16 @@ async function onSubmit() {
         removeStorageSpecifyData('email');
     }
 
-    const res = await login(values as LoginForm);
-    hideLoading();
-    console.log(values, checkedRememberEmail.value, res)
+    const success = await login(values as LoginForm);
+    if(success) {
+        const { returnUrl } = route.query;
+        router.push(returnUrl ? returnUrl as string : "user/edit");
+    }
 }
 </script>
 
 <template>
-    <Form @submit="onSubmit" :initial-values="formValues">
+    <Form @submit="onSubmit">
         <div class="d-grid gap-8">
             <div class="d-grid gap-4">
                 <div class="d-grid gap-2">

@@ -29,7 +29,7 @@ const isHideFooter = computed<boolean>(() => {
 
 </script>
 <template>
-    <VueLoading v-model:active="loadingStore.isLoading" color="#BF9D7D" height="100" width="100" />
+    <VueLoading v-model:active="loadingStore.isLoading" color="#BF9D7D" :height="100" :width="100" />
     <section class="bg-neutral-bg d-flex flex-column justify-content-between min-vh-100">
         <NavbarComponent v-if="!isHideNavbar" />
         <section class="flex-grow-1" :class="{'main-height': routeName === 'login' || routeName === 'register', 'main-margin-top': routeName !== 'guideline'}">

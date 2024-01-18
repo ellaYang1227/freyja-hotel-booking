@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import router from "@/router/index.js";
+import router from "@/router/index";
 import { ref } from "vue";
-
-type StorageDataKey = 'user' | 'email';
+import { UserInfo } from "@/interfaces/User";
+type StorageDataKey = "user" | "email";
 
 export default defineStore("AuthStore", () => {
-    const user = ref<null | any>(null);
+    const userInfo = ref<null | UserInfo>(null);
 
     /**
      * 將指定資料儲存在 localStorage
@@ -13,11 +13,11 @@ export default defineStore("AuthStore", () => {
      * @param key 為存放在 localStorage 的名稱
      * @param data 要存放在 localStorage 的未加密資料
      */
-    function setStorageSpecifyData(key: StorageDataKey, data: string): void {
+    function setStorageSpecifyData(key: StorageDataKey, data: string | UserInfo): void {
         console.log(key, data)
         const encryptData = handleCrypt("encrypt", key, data);
         localStorage.setItem(key, encryptData);
-        if (key === 'user') { user.value = data }
+        if (key === "user") { userInfo.value = data as UserInfo }
     }
 
     /**
@@ -29,10 +29,10 @@ export default defineStore("AuthStore", () => {
         const encryptData = localStorage.getItem(key);
         const decryptData = encryptData ? handleCrypt("decrypt", "user", encryptData) : null;
 
-        if (key === 'user') {
-            user.value = decryptData;
+        if (key === "user") {
+            userInfo.value = decryptData;
 
-            if (!user.value) {
+            if (!userInfo.value) {
                 changeCookie("remove");
             }
         }
@@ -62,28 +62,29 @@ export default defineStore("AuthStore", () => {
     /**
      * 取得 Token
      */
-    function getToken() {
-        return document.cookie.replace(/(?:(?:^|.*;\s*)access-token\s*=\s*([^;]*).*$)|^.*$/, "$1");
+    function getToken(): string {
+        return document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1");
     }
 
     /**
      * 改變 Token
      *
-     * @param method String 新增(add)、清除(remove)
-     * @param token String 原始加密資料
-     * @param user String 要存放在 localStorage 的未加密 user 資料
+     * @param method 新增(add)、清除(remove)
+     * @param token 原始加密資料
+     * @param user 要存放在 localStorage 的未加密 user 資料
      */
-    function changeCookie(method: "remove" | "add", token?: string, user?: any): void {
-        let cookie = `access-token=${token};`;
+    function changeCookie(method: "remove" | "add", token?: string, user?: UserInfo): void {
+        let cookie = `token=${token};`;
 
         if (method === "remove") {
             cookie += "max-age=0";
             removeStorageSpecifyData("user");
-            user.value = null;
+            userInfo.value = null;
         } else if (method === "add") {
             const { exp } = handleCrypt("decrypt", "token", token);
             cookie += `${new Date(exp)}`;
-            setStorageSpecifyData('user', user);
+            console.log(user)
+            if (user) { setStorageSpecifyData("user", user) }
         }
 
         document.cookie = cookie;
@@ -92,9 +93,9 @@ export default defineStore("AuthStore", () => {
     /**
      * 加解密處理
      *
-     * @param type String 處理類型：加密(encrypt)、解密(decrypt)
-     * @param decryptData String 資料內容，如是 token 需傳入 "token"
-     * @param data String | Object 要處理的資料
+     * @param type 處理類型：加密(encrypt)、解密(decrypt)
+     * @param decryptData 資料內容，如是 token 需傳入 "token"
+     * @param data 要處理的資料
      */
     function handleCrypt(type: "encrypt" | "decrypt", decryptData: "token" | StorageDataKey, data: any) {
         if (type === "encrypt") {
@@ -119,7 +120,7 @@ export default defineStore("AuthStore", () => {
     }
 
     return {
-        user,
+        userInfo,
         setStorageSpecifyData,
         getStorageSpecifyData,
         removeStorageSpecifyData,

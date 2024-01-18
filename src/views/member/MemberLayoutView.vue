@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { register } from "@/data/ImagePaths";
+import { register } from "@/data/imagePaths";
 const { VITE_COMPANY_NAME } = import.meta.env;
 import { useRoute } from "vue-router";
 import { computed } from "vue";

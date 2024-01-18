@@ -17,8 +17,28 @@ export const beforeEach = (
     }
 
     document.title = `${title}｜${VITE_COMPANY_NAME}`;
+    const { getToken } = AuthStore();
+    const token = getToken();
 
-    // const { getStorageUser } = AuthStore();
-    // getStorageUser();
-    next();
+    if (!isGuestGuard && !isAuthGuard) {
+        next();
+    } else {
+        // 賓客守衛
+        if (isGuestGuard) {
+            if (!token) {
+                next();
+            } else {
+                next("/user/edit");
+            }
+        }
+
+        // 授權守衛
+        if (isAuthGuard) {
+            if (token) {
+                next();
+            } else {
+                next({ path: "/login", query: { returnUrl: to.path } });
+            }
+        }
+    }
 }

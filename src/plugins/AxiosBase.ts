@@ -1,23 +1,30 @@
 import axios from "axios";
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { setSwalFire } from "@/plugins/Sweetalert2";
-import router from "@/router/index.js";
-import AuthStore from "@/stores/AuthStore.js";
-import LoadingStore from "@/stores/LoadingStore.js";
+import router from "@/router/index";
+import AuthStore from "@/stores/AuthStore";
+import LoadingStore from "@/stores/LoadingStore";
 const { hideLoading } = LoadingStore();
 const { getToken, logout } = AuthStore();
 
+const baseConfig: AxiosRequestConfig = {
+    baseURL: "https://freyja-typescript.onrender.com/api/v1/",
+    timeout: 60000
+}
+
 // 創建 axios 實例
-const bacsRequest = axios.create({
-    baseURL: "https://freyja-typescript.onrender.com/api/v1/"
-});
+const bacsRequest = axios.create(baseConfig);
 
 // 請求攔截
 bacsRequest.interceptors.request.use(
-    request => {
-        request.headers["Authorization"] = `Bearer ${getToken()}`;
-        return request;
+    (config) => {
+        if (getToken()) {
+            config.headers!.Authorization = getToken();
+        }
+
+        return config;
     },
-    error => {
+    (error: AxiosError) => {
         //console.dir(error);
         setSwalFire("popup", "error", "系統錯誤", error.request);
         return Promise.reject({
@@ -29,10 +36,10 @@ bacsRequest.interceptors.request.use(
 
 // 攔截 API response 的回傳
 bacsRequest.interceptors.response.use(
-    response => {
+    (response: AxiosResponse) => {
         return Promise.resolve(response.data);
     },
-    error => {
+    (error: any) => {
         //console.dir(error);
         hideLoading();
         const { name } = router.currentRoute.value;
@@ -40,34 +47,33 @@ bacsRequest.interceptors.response.use(
         const { message } = data;
         console.log(name, message)
 
-        if (status !== 400) {
-            let title = "系統錯誤";
-            let errorMsg = "";
-            let isRedirectLogin = false;
-            let isBackPage = false;
+        let title = "系統錯誤";
+        let errorMsg = "";
+        let isRedirectLogin = false;
+        let isBackPage = false;
 
-            switch (status) {
-                case 404:
-                    errorMsg = name === "login" ? message : "找不到該筆資料";
-                    isBackPage = true;
-                    break;
-                case 401:
-                    title = "驗證失敗";
-                    errorMsg = "您的身分驗證失敗，請重新登入";
-                    isRedirectLogin = true;
-                    break;
-                default:
-                    errorMsg = "發生不明錯誤，請重新操作";
-            }
-
-            setSwalFire("popup", "error", title, errorMsg).then(() => {
-                if (isRedirectLogin) {
-                    logout();
-                } else if (isBackPage) {
-                    router.go(-1);
-                }
-            });
+        switch (status) {
+            case 401:
+                title = "驗證失敗";
+                errorMsg = "您的身分驗證失敗，請重新登入";
+                isRedirectLogin = true;
+                break;
+            case 400:
+            case 404:
+                errorMsg = name === "login" ? message : "找不到該筆資料";
+                isBackPage = true;
+                break;
+            default:
+                errorMsg = "發生不明錯誤，請重新操作";
         }
+
+        setSwalFire("popup", "error", title, errorMsg).then(() => {
+            if (isRedirectLogin) {
+                logout();
+            } else if (isBackPage) {
+                router.go(-1);
+            }
+        });
 
         //console.error(status);
         return Promise.reject({

@@ -11,7 +11,7 @@ export default defineStore("LoadingStore", () => {
     /**
      * 顯示 Loading
      *
-     * @param stype String：Loading 類型，如果是按鈕類型，需傳入 "btn"
+     * @param stype Loading 類型，如果是按鈕類型，需傳入 "btn"
      */
     function showLoading(stype?: Stype): void {
         isLoadingBtn.value = true;
@@ -27,7 +27,7 @@ export default defineStore("LoadingStore", () => {
     /**
      * 隱藏 Loading
      *
-     * @param stype String：Loading 類型，如果是按鈕類型，需傳入 "btn"
+     * @param stype Loading 類型，如果是按鈕類型，需傳入 "btn"
      */
     function hideLoading(stype?: Stype): void {
         progressValue.value = 100;

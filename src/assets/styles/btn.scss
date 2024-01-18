@@ -1,18 +1,11 @@
 .btn {
     &.btn-primary {
         color: $white;
-        border-width: 0;
 
         &:hover {
             color: $white;
+            border-color: $primary-120;
             background-color: $primary-120;
-        }
-
-        &:disabled,
-        &.disabled,
-        fieldset:disabled & {
-            color: $neutral-60;
-            background-color: $neutral-40;
         }
     }
 
@@ -22,7 +15,10 @@
             border-color: $primary-120;
             background-color: $primary-10;
         }
+    }
 
+    &.btn-primary,
+    &.btn-outline-primary {
         &:disabled,
         &.disabled,
         fieldset:disabled & {
