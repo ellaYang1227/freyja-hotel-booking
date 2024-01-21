@@ -2,10 +2,11 @@ interface FormSchema {
     [name: string]: {
         name: string,
         label: string,
-        type: 'email' | 'password' | 'text',
-        as: 'input' | 'password',
-        placeholder: string,
-        help?: string
+        type?: "email" | "password" | "text" | "date",
+        as: "input" | "password" | "select",
+        placeholder?: string,
+        help?: string,
+        maxlength?: number
     }
 }
 
@@ -15,29 +16,63 @@ export const formSchema: FormSchema = {
         label: "電子信箱",
         type: "email",
         as: "input",
-        placeholder: 'hello@exsample.com'
+        placeholder: "hello@exsample.com"
     },
     passwordSchema: {
         name: "password",
         label: "密碼",
         type: "password",
         as: "input",
-        help: "密碼為 8 碼以上英數混合",
-        placeholder: '請輸入密碼'
+        placeholder: "請輸入密碼"
     },
     confirmPasswordSchema: {
         name: "confirmPassword",
         label: "確認密碼",
         type: "password",
         as: "input",
-        placeholder: '請再輸入一次密碼'
+        placeholder: "請再輸入一次密碼"
     },
-    // userNameSchema: {
-    //     name: "userName",
-    //     label: "名字",
-    //     type: "text",
-    //     as: "input",
-    //     rules: "required|max:10",
-    //     isRequired: true
-    // }
+    nameSchema: {
+        name: "name",
+        label: "姓名",
+        type: "text",
+        as: "input",
+        placeholder: "請輸入姓名",
+        maxlength: 10
+    },
+    phoneSchema: {
+        name: "phone",
+        label: "手機號碼",
+        type: "text",
+        as: "input",
+        placeholder: "請輸入手機號碼",
+        maxlength: 10
+    },
+    birthdaySchema_year: {
+        name: "year",
+        label: "生日",
+        as: "select"
+    },
+    birthdaySchema_month: {
+        name: "month",
+        label: "生日",
+        as: "select"
+    },
+    birthdaySchema_day: {
+        name: "day",
+        label: "生日",
+        as: "select"
+    },
+    addressSchema_zipcode: {
+        name: "zipcode",
+        label: "地址",
+        as: "select"
+    },
+    addressSchema_detail: {
+        name: "detail",
+        label: "地址",
+        type: "text",
+        as: "input",
+        placeholder: "請輸入詳細地址"
+    }
 };

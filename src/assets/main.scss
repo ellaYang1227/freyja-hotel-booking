@@ -9,6 +9,11 @@
 * 共用 bootstrap
 * ==========================================================================
 */
+body {
+    @include media-breakpoint-down(lg) {
+        font-size: 0.875rem;
+    }
+}
 
 .form-control {
     &.is-invalid {

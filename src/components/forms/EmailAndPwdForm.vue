@@ -2,54 +2,71 @@
 import { Form, Field, useForm, useField } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { object, string } from "zod";
-import { ref } from "vue";
+import { watch } from "vue";
 import { formSchema } from "@/data/FormSchema";
 import LoadingStore from "@/stores/LoadingStore";
+import { RegisterStep1Form, Email } from "@/interfaces/UserForm";
 const { showLoading, hideLoading } = LoadingStore();
 const { emailSchema, passwordSchema, confirmPasswordSchema } = formSchema;
 
 
-// const props = defineProps<any>();
+// 從父元件傳入表單資料
+interface EmailAndPwdFormProps {
+    formDate: RegisterStep1Form,
+    registeredEmail?: Email
+}
 
-const { errors, values, meta } = useForm({
-    initialValues: {
-        email: "",
-        password: "",
-    },
+const props = defineProps<EmailAndPwdFormProps>();
+const { formDate } = props;
+
+const { errors, values, meta, validate } = useForm({
+    initialValues: formDate,
     validationSchema: toTypedSchema(object({
         email: string()
         .email(`${emailSchema.label}格式錯誤`)
         .min(1, `請輸入${emailSchema.label}`),
         password: string()
         .min(1, `請輸入${passwordSchema.label}`)
-        .regex(/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/, `${passwordSchema.label}為必填，至少 8 碼以上英數混合`),
+        .regex(/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/, `${passwordSchema.label}須為 8 碼以上英數混合`),
         confirmPassword: string()
         .min(1, `請再輸入一次${passwordSchema.label}`)
     })
-    .refine((data) => data.password === data.confirmPassword, {
+    .refine(form => form.password === form.confirmPassword, {
       message: `與${passwordSchema.label}不符`,
       path: ["confirmPassword"],
     })
-    // .refine((data) => data.email !== props.isEmailExistsEmail, {
-    //   message: "此信箱已被註冊",
-    //   path: ["email"],
-    // })
-    ),
+    .refine(form => form.email !== props.registeredEmail, {
+      message: `此${emailSchema.label}已被註冊`,
+      path: ["email"],
+    })),
 });
 
-const { value: email } = useField('email');
-const { value: password } = useField('password');
-const { value: confirmPassword } = useField('confirmPassword');
+const { value: email } = useField("email");
+const { value: password } = useField("password");
+const { value: confirmPassword } = useField("confirmPassword");
 hideLoading();
 
-async function onSubmit() {
+// 發送表單資料至父元件
+type DefineEmits = { handleSubmit: [values: EmailAndPwdFormProps["formDate"]] };
+const emits = defineEmits<DefineEmits>();
+function sendDataToParent() {
     showLoading();
-    console.log(values)
+    emits("handleSubmit", values as EmailAndPwdFormProps["formDate"]);
 }
+
+// 監聽父元件更新的值
+watch<any, any>(
+    () => props.registeredEmail,
+    async (newVal: EmailAndPwdFormProps["registeredEmail"]) => {
+        if(newVal) { await validate() }
+    }, { 
+        deep: true 
+    }
+);
 </script>
 
 <template>
-    <Form @submit="onSubmit">
+    <Form @submit="sendDataToParent">
         <div class="d-grid gap-8">
             <div class="d-grid gap-4">
                 <div class="d-grid gap-2">
@@ -73,7 +90,8 @@ async function onSubmit() {
                     <span class="invalid-feedback">{{ errors.confirmPassword }}</span>
                 </div>
             </div>
-            <button class="btn btn-primary" :disabled="!meta.valid">下一步</button>
+            <!-- submit 按鈕 -->
+            <slot :disabled="!meta.valid"></slot>
         </div>
     </Form>
 </template>

@@ -2,13 +2,14 @@ import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { setSwalFire } from "@/plugins/Sweetalert2";
 import router from "@/router/index";
+const { VITE_API_ROOT } = import.meta.env;
 import AuthStore from "@/stores/AuthStore";
 import LoadingStore from "@/stores/LoadingStore";
 const { hideLoading } = LoadingStore();
 const { getToken, logout } = AuthStore();
 
 const baseConfig: AxiosRequestConfig = {
-    baseURL: "https://freyja-typescript.onrender.com/api/v1/",
+    baseURL: VITE_API_ROOT,
     timeout: 60000
 }
 

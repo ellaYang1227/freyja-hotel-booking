@@ -1,20 +1,23 @@
-export interface UserInfo {
-    address: Address,
-    _id: string,
+import { Email } from "@/interfaces/UserForm";
+
+export interface UserInfoBasic {
     name: string,
-    email: string,
     phone: string,
-    birthday: string | Date,
+    birthday: string,
+    address: Address
+}
+export interface UserInfo extends UserInfoBasic {
+    email: Email,
+    _id: string,
     createdAt: string | Date,
     updatedAt: string | Date,
-    id: string
+    id?: string,
+    verificationToken?: string
 }
 
 export interface Address {
     zipcode: number,
     detail: string,
-    county: string,
-    city: string
+    county?: string,
+    city?: string
 }
-
-

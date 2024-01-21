@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import router from "@/router/index";
 import { bacsRequest } from "@/plugins/AxiosBase";
-import { LoginForm } from "@/interfaces/UserForm";
+import { LoginForm, RegisterForm } from "@/interfaces/UserForm";
 import { UserInfo } from "@/interfaces/User";
 import AuthStore from "@/stores/AuthStore";
 const { changeCookie } = AuthStore();
@@ -16,9 +16,23 @@ export default defineStore("userStore", () => {
         return bacsRequest
             .post(`user/login`, { ...body })
             .then(({ result, token }: any) => {
-                console.log(result, token)
                 changeCookie("add", token, result);
-                //router.push(returnUrl);
+                return Promise.resolve(true);
+            })
+            .catch(err => Promise.reject(false));
+    }
+
+    /**
+     * 註冊
+     * 
+     * @param body 註冊資料
+     */
+    function signup(body: RegisterForm): Promise<boolean> {
+        return bacsRequest
+            .post(`user/signup`, { ...body })
+            .then(({ result, token }: any) => {
+                changeCookie("add", token, result);
+                router.push("/user/edit");
                 return Promise.resolve(true);
             })
             .catch(err => Promise.reject(false));
@@ -26,5 +40,6 @@ export default defineStore("userStore", () => {
 
     return {
         login,
+        signup
     }
 });

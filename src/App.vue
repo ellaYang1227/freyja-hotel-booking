@@ -39,22 +39,19 @@ const isHideFooter = computed<boolean>(() => {
     </section>
 </template>
 <style lang="scss">
-$navbar-height: 72px;
-$navbar-height-lg: 120px;
-
 .main-height {
-    height: calc(100vh - $navbar-height);
+    min-height: calc(100vh - $custom-navbar-height);
 
     @include media-breakpoint-up(lg) {
-        height: calc(100vh - $navbar-height-lg);
+        min-height: calc(100vh - $custom-navbar-height-lg);
     }
 }
 
 .main-margin-top {
-    margin-top: $navbar-height;
+    margin-top: $custom-navbar-height;
 
     @include media-breakpoint-up(lg) {
-        margin-top: $navbar-height-lg;
+        margin-top: $custom-navbar-height-lg;
     }
 
 }
