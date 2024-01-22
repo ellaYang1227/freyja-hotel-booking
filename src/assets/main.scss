@@ -9,6 +9,11 @@
 * 共用 bootstrap
 * ==========================================================================
 */
+body {
+    @include media-breakpoint-down(lg) {
+        font-size: 0.875rem;
+    }
+}
 
 .form-control {
     &.is-invalid {
@@ -23,6 +28,20 @@
 
 label.form-check-label {
     font-weight: 700;
+}
+
+.dropdown-toggle {
+    &::after {
+        display: none;
+    }
+
+    .dropdown-item {
+        font-weight: 700;
+    }
+}
+
+.active {
+    cursor: default;
 }
 
 /*
@@ -40,4 +59,12 @@ img {
     object-fit: cover;
     width: 100%;
     height: 100%;
+}
+
+.min-height-inherit {
+    min-height: inherit;
+}
+
+.icon-size {
+    font-size: 1.5rem;
 }

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import LoadingStore from '@/stores/LoadingStore';
+const { hideLoading } = LoadingStore();
+hideLoading();
 </script>
 
 <template>

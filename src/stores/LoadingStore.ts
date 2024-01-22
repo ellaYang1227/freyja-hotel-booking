@@ -20,8 +20,6 @@ export default defineStore("LoadingStore", () => {
             isLoading.value = true;
             document.body.classList.add("overflow-hidden");
         }
-
-        console.log(isLoading.value)
     }
 
     /**

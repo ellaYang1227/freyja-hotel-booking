@@ -2,13 +2,14 @@ import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { setSwalFire } from "@/plugins/Sweetalert2";
 import router from "@/router/index";
+const { VITE_API_ROOT } = import.meta.env;
 import AuthStore from "@/stores/AuthStore";
 import LoadingStore from "@/stores/LoadingStore";
 const { hideLoading } = LoadingStore();
 const { getToken, logout } = AuthStore();
 
 const baseConfig: AxiosRequestConfig = {
-    baseURL: "https://freyja-typescript.onrender.com/api/v1/",
+    baseURL: VITE_API_ROOT,
     timeout: 60000
 }
 
@@ -45,7 +46,6 @@ bacsRequest.interceptors.response.use(
         const { name } = router.currentRoute.value;
         const { status, data } = error.response;
         const { message } = data;
-        console.log(name, message)
 
         let title = "系統錯誤";
         let errorMsg = "";
