@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { register } from "@/data/imagePaths";
-const { VITE_COMPANY_NAME } = import.meta.env;
 </script>
 
 <template>
-    <div class="row row-cols-1 row-cols-lg-2 g-0 h-100">
-        <!-- <div class="col align-self-stretch d-none d-lg-block img-lg-min-height">
-            <img :src="register" :alt="VITE_COMPANY_NAME" />
-        </div> -->
+    <div class="row row-cols-1 row-cols-lg-2 g-0 min-height-inherit">
         <div class="col align-self-stretch d-none d-lg-block left-bg-img"></div>
         <div class="col bg-img-line">
             <div class="px-5 px-lg-0 flex-fill">
@@ -24,20 +19,10 @@ const { VITE_COMPANY_NAME } = import.meta.env;
 </template>
 
 <style lang="scss">
-.img-lg-min-height {
-    @include media-breakpoint-up(lg) {
-        min-height: calc(100vh - $custom-navbar-height-lg);
-
-        img {
-            
-        overflow: hidden;
-        }
-    }
-}
-
 .left-bg-img {
     background: url("@/assets/images/register.png") no-repeat;
     background-size: cover;
+    background-position: center;
 }
 .form-width {
     @include media-breakpoint-up(sm) {

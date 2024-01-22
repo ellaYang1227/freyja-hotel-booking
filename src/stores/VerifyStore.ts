@@ -14,7 +14,6 @@ export default defineStore("verifyStore", () => {
         return bacsRequest
             .post(`verify/email`, { email })
             .then(({ result }: any) => {
-                console.log(result)
                 return Promise.resolve(result.isEmailExists);
             })
             .catch(err => Promise.reject(false));
@@ -29,7 +28,6 @@ export default defineStore("verifyStore", () => {
         return bacsRequest
             .post(`verify/generateEmailCode`, { email })
             .then(({ status }: any) => {
-                console.log(status)
                 return Promise.resolve(true);
             })
             .catch(err => Promise.reject(false));

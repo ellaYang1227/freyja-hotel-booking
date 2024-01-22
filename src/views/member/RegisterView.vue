@@ -11,7 +11,7 @@ import { UserInfoBasic } from "@/interfaces/User";
 const { hideLoading } = LoadingStore();
 type Step = 1 | 2;
 const steps = ref<string[]>(["輸入信箱及密碼", "填寫基本資料"]);
-const currentStep = ref<Step>(2);
+const currentStep = ref<Step>(1);
 
 const step1FormDate = ref<RegisterStep1Form>({
     email: "",
@@ -32,7 +32,6 @@ const step2FormDate = ref<UserInfoBasic>({
 const registeredEmail = ref<string>("");
 const { verifyEmail } = VerifyStore();
 async function nextStep(values: RegisterStep1Form): Promise<void> {
-    console.log(values)
     step1FormDate.value = values;
     const { email } = step1FormDate.value;
     const isEmailExists = await verifyEmail(email);
@@ -48,7 +47,6 @@ async function nextStep(values: RegisterStep1Form): Promise<void> {
 
 const { signup } = UserStore();
 async function handleSubmit(values: UserInfoBasic): Promise<void> {
-    console.log(values, step1FormDate.value)
     step2FormDate.value = values;
     const newStep1FormDate :any = { ...step1FormDate.value };
     delete newStep1FormDate.confirmPassword;
@@ -99,6 +97,7 @@ async function handleSubmit(values: UserInfoBasic): Promise<void> {
 <style lang="scss">
 .step1-pt {
     padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 
     @include media-breakpoint-up(lg) {
         padding-top: 5.25rem;
@@ -107,9 +106,11 @@ async function handleSubmit(values: UserInfoBasic): Promise<void> {
 
 .step2-pt {
     padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
 
     @include media-breakpoint-up(lg) {
         padding-top: 0.25rem;
+        padding-bottom: 5.75rem;
     }
 }
 // 步驟

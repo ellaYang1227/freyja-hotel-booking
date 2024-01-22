@@ -46,7 +46,6 @@ bacsRequest.interceptors.response.use(
         const { name } = router.currentRoute.value;
         const { status, data } = error.response;
         const { message } = data;
-        console.log(name, message)
 
         let title = "系統錯誤";
         let errorMsg = "";

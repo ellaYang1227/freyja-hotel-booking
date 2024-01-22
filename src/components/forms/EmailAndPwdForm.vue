@@ -32,12 +32,12 @@ const { errors, values, meta, validate } = useForm({
         .min(1, `請再輸入一次${passwordSchema.label}`)
     })
     .refine(form => form.password === form.confirmPassword, {
-      message: `與${passwordSchema.label}不符`,
-      path: ["confirmPassword"],
+        message: `與${passwordSchema.label}不符`,
+        path: ["confirmPassword"],
     })
     .refine(form => form.email !== props.registeredEmail, {
-      message: `此${emailSchema.label}已被註冊`,
-      path: ["email"],
+        message: `此${emailSchema.label}已被註冊`,
+        path: ["email"],
     })),
 });
 

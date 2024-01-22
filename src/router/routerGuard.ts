@@ -7,7 +7,6 @@ export const beforeEach = (
     from: RouteLocationNormalized,
     next: NavigationGuardNext
 ): void => {
-    console.log(to)
     const { meta, path } = to;
     const { isGuestGuard, isAuthGuard } = meta;
     let { title } = meta;
@@ -17,15 +16,15 @@ export const beforeEach = (
     }
 
     document.title = `${title}｜${VITE_COMPANY_NAME}`;
-    const { getToken } = AuthStore();
-    const token = getToken();
+    const { getStorageSpecifyData } = AuthStore();
+    const userInfo = getStorageSpecifyData("user");
 
     if (!isGuestGuard && !isAuthGuard) {
         next();
     } else {
         // 賓客守衛
         if (isGuestGuard) {
-            if (!token) {
+            if (!userInfo) {
                 next();
             } else {
                 next("/user/edit");
@@ -34,7 +33,7 @@ export const beforeEach = (
 
         // 授權守衛
         if (isAuthGuard) {
-            if (token) {
+            if (userInfo) {
                 next();
             } else {
                 next({ path: "/login", query: { returnUrl: to.path } });

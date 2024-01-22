@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { logo } from "@/data/imagePaths";
+import { logo } from "@/data/ImagePaths";
 const { VITE_COMPANY_NAME } = import.meta.env; 
 // import { ref } from 'vue'
 

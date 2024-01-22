@@ -17,7 +17,6 @@ const zipcode = ref<ZipcodeOption["zipcode"]>();
 watch<any, any>(
     () => props.modelValue,
     (modelValue: ZipcodeOption["zipcode"]) => {
-        console.log(modelValue)
         modelValue = modelValue || 800;
         county.value = zipcodeOptions.find(option => option.zipcode === modelValue)?.county || "";
         zipcode.value = modelValue;
@@ -39,7 +38,6 @@ const cityOptions = computed<ZipcodeOption[]>(() => zipcodeOptions.filter(option
 watch<any, any>(
     () => cityOptions.value,
     (newVal: ZipcodeOption[]) => {
-        console.log(newVal)
         if (newVal) { 
             zipcode.value = newVal[0].zipcode;
         }

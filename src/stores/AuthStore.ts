@@ -14,7 +14,6 @@ export default defineStore("AuthStore", () => {
      * @param data 要存放在 localStorage 的未加密資料
      */
     function setStorageSpecifyData(key: StorageDataKey, data: string | UserInfo): void {
-        console.log(key, data)
         const encryptData = handleCrypt("encrypt", key, data);
         localStorage.setItem(key, encryptData);
         if (key === "user") { userInfo.value = data as UserInfo }
@@ -83,7 +82,6 @@ export default defineStore("AuthStore", () => {
         } else if (method === "add") {
             const { exp } = handleCrypt("decrypt", "token", token);
             cookie += `${new Date(exp)}`;
-            console.log(user)
             if (user) { setStorageSpecifyData("user", user) }
         }
 

@@ -60,7 +60,6 @@ function sendDataToParent() {
 watch<any, any>(
     () => props.formDate,
     async (newVal: UserInfoFromProps["formDate"]) => {
-        console.log("watch", newVal)
         if(newVal) { await validate() }
     },
     { deep: true }
