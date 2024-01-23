@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 import { Field } from "vee-validate";
 import { computed, watch, ref } from "vue";
 import { ZipcodeOption, zipcodeOptions } from "@/data/ZipcodeOptions";
 import { formSchema } from "@/data/FormSchema";
+
+const route = useRoute();
 
 interface Props {
     modelValue: ZipcodeOption["zipcode"]
@@ -64,7 +67,7 @@ watch<any, any>(
 <template>
     <div class="row gx-2 align-items-end">
         <section class="col d-grid gap-2">
-            <label for="county" class="form-label text-white">{{ formSchema.addressSchema_zipcode.label }}</label>
+            <label for="county" class="form-label" :class="{ 'text-white': route.name === 'register' }">{{ formSchema.addressSchema_zipcode.label }}</label>
             <Field v-model="county" id="county" name="county" class="form-control" :as="formSchema.addressSchema_zipcode.as" >
                 <option v-for="option in countyOptions" :key="option.county" :value="option.county">{{ option.county }}</option>
             </Field>

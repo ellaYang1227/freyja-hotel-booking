@@ -10,12 +10,12 @@ hideLoading();
 <template>
     <div class="banner">
         <img :src="hero" :alt="userInfo?.name" class="position-absolute" />
-        <div class="container d-flex align-items-center gap-6 position-absolute">
+        <div class="container-lg d-grid d-lg-flex align-items-center gap-4 gap-lg-6 position-absolute">
             <img :src="user1" :alt="userInfo?.name" class="img-avatar" />
             <h1 class="text-white">Hello，{{ userInfo?.name }}</h1>
         </div>
     </div>
-    <div class="container pb-8 pb-lg-14">
+    <div class="container-lg pb-8 pb-lg-14">
         <div class="py-8 py-lg-12">
             <nav class="nav">
                 <RouterLink class="nav-link" to="/user/edit">個人資料</RouterLink>
@@ -32,6 +32,7 @@ hideLoading();
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 206px;
 
     @include media-breakpoint-up(lg) {
         height: 384px;
@@ -39,8 +40,13 @@ hideLoading();
 
     // 頭像
     img.img-avatar {
-        width: 144px;
-        height: 144px;
+        width: 72px;
+        height: 72px;
+
+        @include media-breakpoint-up(lg) {
+            width: 144px;
+            height: 144px;
+        }
     }
 }
 

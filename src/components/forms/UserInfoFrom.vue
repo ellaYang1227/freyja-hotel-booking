@@ -13,7 +13,8 @@ const { showLoading, hideLoading } = LoadingStore();
 
 // 從父元件傳入表單資料
 interface UserInfoFromProps {
-    formDate: UserInfoBasic
+    formDate: UserInfoBasic,
+    from: "register" | "editMyinfo",
 }
 
 const isAgree = ref<boolean>(false);
@@ -60,24 +61,28 @@ function sendDataToParent() {
 watch<any, any>(
     () => props.formDate,
     async (newVal: UserInfoFromProps["formDate"]) => {
+        console.log(newVal)
         if(newVal) { await validate() }
     },
-    { deep: true }
+    { 
+        immediate: true,
+        deep: true 
+    }
 );
 </script>
 
 <template>
     <Form @submit="sendDataToParent">
         <div class="d-grid gap-8">
-            <div class="d-grid gap-4">
+            <div class="d-grid gap-4" :class="{ 'gap-lg-6': props.from === 'editMyinfo' }">
                 <div class="d-grid gap-2">
-                    <label :for="formSchema.nameSchema.name" class="form-label text-white">{{ formSchema.nameSchema.label }}</label>
+                    <label :for="formSchema.nameSchema.name" class="form-label" :class="{ 'text-white': from === 'register' }">{{ formSchema.nameSchema.label }}</label>
                     <Field v-model.trim="name" :id="formSchema.nameSchema.name" :name="formSchema.nameSchema.name" class="form-control" :placeholder="formSchema.nameSchema.placeholder" :as="formSchema.nameSchema.as" :type="formSchema.nameSchema.type" :class="{ 'is-invalid': errors.name }" :maxlength="formSchema.nameSchema.maxlength"
                     />
                     <span class="invalid-feedback">{{ errors.name }}</span>
                 </div>
                 <div class="d-grid gap-2">
-                    <label :for="formSchema.phoneSchema.name" class="form-label text-white">{{ formSchema.phoneSchema.label }}</label>
+                    <label :for="formSchema.phoneSchema.name" class="form-label" :class="{ 'text-white': from === 'register' }">{{ formSchema.phoneSchema.label }}</label>
                     <Field v-model.trim="phone" :id="formSchema.phoneSchema.name" :name="formSchema.phoneSchema.name" class="form-control" :placeholder="formSchema.phoneSchema.placeholder" :as="formSchema.phoneSchema.as" :type="formSchema.phoneSchema.type"
                     :class="{ 'is-invalid': errors.phone }" :maxlength="formSchema.phoneSchema.maxlength"
                     />
@@ -89,21 +94,26 @@ watch<any, any>(
                 <div class="d-grid gap-2">
                     <AddressSelect :model-value="(zipcode as number)" @update:model-value="(values: number) => (zipcode = values)" />
                 </div>
+            </div>
+        </div>
+            <div class="d-grid gap-4 mt-4" :class="{ 'gap-lg-6': props.from === 'editMyinfo' }">
                 <div class="d-grid gap-2">
                     <Field v-model.trim="detail" :name="formSchema.addressSchema_detail.name" class="form-control" :placeholder="formSchema.addressSchema_detail.placeholder" :as="formSchema.addressSchema_detail.as" :type="formSchema.addressSchema_detail.type"
                     :class="{ 'is-invalid': errors['address.detail'] }"
                     />
                     <span class="invalid-feedback">{{ errors["address.detail"] }}</span>
                 </div>
-                <div class="form-check">
+                <div class="form-check" v-if="from === 'register'">
                     <input class="form-check-input" type="checkbox" v-model="isAgree" id="isAgree">
                     <label class="form-check-label text-white" for="isAgree">我已閱讀並同意本網站個資使用規範</label>
                 </div>
             </div>
             <!-- submit 按鈕 -->
-            <slot :disabled="!meta.valid || !isAgree" name="registerBtn"></slot>
-            <slot :disabled="!meta.valid"></slot>
-        </div>
+            <section class="mt-6 mt-lg-8" :class="props.from === 'register' ? 'mt-8' : 'mt-6 mt-lg-8'">
+                {{ meta  }}
+                <slot :disabled="!meta.valid || !isAgree" name="registerBtn"></slot>
+                <slot :disabled="!meta.valid"></slot>
+            </section>
     </Form>
 </template>
 

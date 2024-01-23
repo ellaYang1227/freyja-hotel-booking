@@ -47,14 +47,13 @@ async function nextStep(values: RegisterStep1Form): Promise<void> {
 
 const { signup } = UserStore();
 async function handleSubmit(values: UserInfoBasic): Promise<void> {
-    console.log(values)
-    // step2FormDate.value = values;
-    // const newStep1FormDate :any = { ...step1FormDate.value };
-    // delete newStep1FormDate.confirmPassword;
-    // await signup({ 
-    //     ...newStep1FormDate, 
-    //     ...step2FormDate.value
-    // });
+    step2FormDate.value = values;
+    const newStep1FormDate :any = { ...step1FormDate.value };
+    delete newStep1FormDate.confirmPassword;
+    await signup({ 
+        ...newStep1FormDate, 
+        ...step2FormDate.value
+    });
 }
 </script>
 
@@ -85,9 +84,9 @@ async function handleSubmit(values: UserInfoBasic): Promise<void> {
                 </EmailAndPwdForm>
             </div>
             <div v-show="currentStep === 2" >
-                <UserInfoFrom :formDate="step2FormDate" @handleSubmit="handleSubmit" >
+                <UserInfoFrom from="register" :formDate="step2FormDate" @handleSubmit="handleSubmit" >
                     <template #registerBtn=slotProps>
-                        <button class="btn btn-primary" :disabled="slotProps.disabled">完成註冊</button>
+                        <button class="btn btn-primary w-100" :disabled="slotProps.disabled">完成註冊</button>
                     </template>
                 </UserInfoFrom>
             </div>

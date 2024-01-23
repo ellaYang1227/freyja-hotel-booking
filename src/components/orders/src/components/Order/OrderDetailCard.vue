@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import ProvideItemsCard from "@/components/room/ProvideItemsCard.vue";
 import { OrderDetail } from "@/interfaces/Order";
-import { daysDifference, dateTransform } from "@/handle-formats/HandleDate";
+import { daysDifference, zhTwDateTransform } from "@/handle-formats/HandleDate";
 import { currencyTransform } from "@/handle-formats/FormatTransform";
 
 const props = defineProps({
@@ -125,14 +125,14 @@ function getTotal(orderDetail: OrderDetail): string {
                                     <div class="d-flex align-items-center">
                                         <div class="customize-vr"></div>
                                         <section>
-                                            入住：{{ dateTransform(orderDetail.checkInDate)
+                                            入住：{{ zhTwDateTransform(orderDetail.checkInDate)
                                             }}<span v-if="!isHistory">，15:00 可入住</span>
                                         </section>
                                     </div>
                                     <div class="d-flex align-items-center">
                                     <div class="customize-vr bg-neutral-60"></div>
                                     <section>
-                                        退房：{{ dateTransform(orderDetail.checkOutDate)
+                                        退房：{{ zhTwDateTransform(orderDetail.checkOutDate)
                                         }}<span v-if="!isHistory">，12:00 前退房</span>
                                     </section>
                                     </div>

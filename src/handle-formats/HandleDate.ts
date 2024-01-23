@@ -19,17 +19,39 @@ export function daysDifference(
 }
 
 /**
- * 日期轉換(月、日、星期)
+ * 繁體中文日期轉換(年、月、日、星期)
  * @param date 要轉換的日期
- * @return e.g.=> 12 月 28 日星期四
+ * @param format 格式，預設為 月日星期
+ * @return e.g.=> 12 月 28 日星期四、1990 年 12 月 28 日
  */
-export function dateTransform(date: Date | string): string {
+export function zhTwDateTransform(date: Date | string, format: "月日星期" | "年月日" = "月日星期"): string {
     const formatDate = newDateTransform(date).toLocaleDateString("zh-TW", {
-        weekday: "long",
         month: "short",
         day: "numeric",
+        year: "numeric",
+        weekday: "long"
     });
+
+    if (format === "年月日") {
+        return formatDate.replace(/(\d{1,4})年(\d{1,2})月(\d{1,2})日 (.+)/, "$1 年 $2 月 $2 日");
+    }
+
     return formatDate.replace(/(\d{1,2})月(\d{1,2})日 (.+)/, "$1 月 $2 日$3");
+}
+
+/**
+ * 日期轉換
+ * @param date 要轉換的日期
+ * @return e.g.=> 1990/12/28
+ */
+export function dateTransform(date: Date | string): string {
+    const formatDate = newDateTransform(date).toLocaleDateString('zh-TW', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+
+    return formatDate;
 }
 
 /**

@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import AuthStore from "@/stores/AuthStore";
 import UserStore from "@/stores/UserStore";
 import LoadingStore from "@/stores/LoadingStore";
 import EmailAndPwdForm from "@/components/forms/EmailAndPwdForm.vue";
 import UserInfoFrom from "@/components/forms/UserInfoFrom.vue";
 import { ChangePasswordForm, EditMyInfoForm } from "@/interfaces/UserForm";
+import { UserInfoBasic } from "@/interfaces/User";
+import { zipcodeOptions } from "@/data/ZipcodeOptions";
+import { zhTwDateTransform } from "@/handle-formats/HandleDate";
 
 const { userInfo } = AuthStore();
-const { changePassword } = UserStore();
+const { changePassword, editMyinfo } = UserStore();
 const { hideLoading } = LoadingStore();
 
 interface IsEditStatus {
@@ -48,29 +51,34 @@ async function changePwd(values: ChangePasswordForm): Promise<void> {
 
 // 修改個人資料
 console.log(userInfo)
-const editMyInfoFormDate = ref<EditMyInfoForm>({
-    userId,
-    name: "台灣某個角落2",
-    phone: "台灣某個角落2",
-    birthday: "台灣某個角落2",
-    "address": {
-        "zipcode": 802,
-        "detail": "台灣某個角落2"
+const editMyInfoFormDate = ref<UserInfoBasic>({
+    name: userInfo?.name || "",
+    phone: userInfo?.phone || "",
+    birthday: userInfo?.birthday || "",
+    address: {
+        zipcode: userInfo?.address.zipcode || 800,
+        detail: userInfo?.address.detail || ""
     }
 });
 
-async function editMyinfo(values: EditMyInfoForm): Promise<void> {
+// 取得完整地址
+const fullAddress = computed<string>(() => {
+    const { detail, zipcode} = editMyInfoFormDate.value.address;
+    const find = zipcodeOptions.find(option => option.zipcode === zipcode);
+    return `${find?.county}${find?.city}${detail}`;
+});
+
+async function sendEditMyinfo(values: UserInfoBasic): Promise<void> {
     console.log(values)
-    // delete values.confirmPassword;
-    // const success = await changePassword(values);
-    // console.log(success)
-    // if (success) { changeEditStatus("changePwd") }
-    // hideLoading();
+    const success = await editMyinfo({...values, userId });
+    console.log(success)
+    if (success) { changeEditStatus("editMyinfo") }
+    hideLoading();
 }
 </script>
 
 <template>
-    <div class="row gap-8 g-0">
+    <div class="row gap-6 gap-lg-8 g-0">
         <div class="col-lg-5">
             <div class="card rounded-3 border-0">
                 <div class="card-body p-6 p-lg-8 d-grid gap-6 gap-lg-8">
@@ -98,13 +106,34 @@ async function editMyinfo(values: EditMyInfoForm): Promise<void> {
         </div>
         <div class="col-lg">
             <div class="card rounded-3 border-0">
-                <div class="card-body p-6 p-lg-8">
+                <div class="card-body p-6 p-lg-8 d-grid gap-6 gap-lg-8">
                     <h5 class="card-title mb-0">基本資料</h5>
-                    <UserInfoFrom :formDate="editMyInfoFormDate" @handleSubmit="editMyinfo" >
-                        <template #registerBtn=slotProps>
-                            <button class="btn btn-primary" :disabled="slotProps.disabled">完成註冊</button>
-                        </template>
+                    <UserInfoFrom from="editMyinfo" v-if="isEditStatus.editMyinfo" :formDate="editMyInfoFormDate" @handleSubmit="sendEditMyinfo" v-slot="slotProps">
+                        <button class="btn btn-primary" :disabled="slotProps.disabled">儲存設定</button>
                     </UserInfoFrom>
+                    <template v-else>
+                        <ul class="d-grid gap-4 gap-lg-6 list-unstyled mb-0">
+                            <li class="d-grid gap-2">
+                                <span class="d-block">姓名</span>
+                                <strong class="text-title text-neutral">{{ userInfo?.name }}</strong>
+                            </li>
+                            <li class="d-grid gap-2">
+                                <span class="d-block">手機號碼</span>
+                                <strong class="text-title text-neutral">{{ userInfo?.phone }}</strong>
+                            </li>
+                            <li class="d-grid gap-2">
+                                <span class="d-block">生日</span>
+                                <strong class="text-title text-neutral" v-if="userInfo">{{ zhTwDateTransform(userInfo.birthday, "年月日") }}</strong>
+                            </li>
+                            <li class="d-grid gap-2">
+                                <span class="d-block">地址</span>
+                                <strong class="text-title text-neutral">{{ fullAddress }}</strong>
+                            </li>
+                        </ul>
+                        <section>
+                            <button type="button" class="btn btn-outline-primary" @click="changeEditStatus('editMyinfo')">編輯</button>
+                        </section>
+                    </template>
                 </div>
             </div>
         </div>
