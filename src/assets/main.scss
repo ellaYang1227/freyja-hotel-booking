@@ -44,6 +44,11 @@ label.form-check-label {
     cursor: default;
 }
 
+.form-control-plaintext {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+}
 /*
 * ==========================================================================
 * 共用

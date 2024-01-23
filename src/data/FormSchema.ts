@@ -1,4 +1,4 @@
-interface FormSchema {
+export interface FormSchema {
     [name: string]: {
         name: string,
         label: string,
@@ -24,6 +24,20 @@ export const formSchema: FormSchema = {
         type: "password",
         as: "input",
         placeholder: "請輸入密碼"
+    },
+    oldPasswordSchema: {
+        name: "oldPassword",
+        label: "舊密碼",
+        type: "password",
+        as: "input",
+        placeholder: "請輸入舊密碼"
+    },
+    newPasswordSchema: {
+        name: "newPassword",
+        label: "新密碼",
+        type: "password",
+        as: "input",
+        placeholder: "請輸入新密碼"
     },
     confirmPasswordSchema: {
         name: "confirmPassword",

@@ -28,13 +28,13 @@ export default [
         meta: { isAuthGuard: true },
         children: [{
             path: "edit",
-            name: "edit",
+            name: "userEdit",
             component: () => import("@/views/user/EditView.vue"),
             meta: { title: "修改個人資料" }
         },
         {
             path: "orders",
-            name: "orders",
+            name: "userOrders",
             component: () => import("@/views/user/OrdersView.vue"),
             meta: { title: "訂單列表" }
         }, {

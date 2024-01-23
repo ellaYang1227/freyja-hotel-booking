@@ -1,14 +1,67 @@
 <script setup lang="ts">
-import LoadingStore from '@/stores/LoadingStore';
+import { hero, user1 } from "@/data/ImagePaths";
+import AuthStore from "@/stores/AuthStore";
+import LoadingStore from "@/stores/LoadingStore";
+const { userInfo } = AuthStore();
 const { hideLoading } = LoadingStore();
 hideLoading();
 </script>
 
 <template>
-    <div class="d-grid">
-        <div>1111</div>
+    <div class="banner">
+        <img :src="hero" :alt="userInfo?.name" class="position-absolute" />
+        <div class="container d-flex align-items-center gap-6 position-absolute">
+            <img :src="user1" :alt="userInfo?.name" class="img-avatar" />
+            <h1 class="text-white">Hello，{{ userInfo?.name }}</h1>
+        </div>
+    </div>
+    <div class="container pb-8 pb-lg-14">
+        <div class="py-8 py-lg-12">
+            <nav class="nav">
+                <RouterLink class="nav-link" to="/user/edit">個人資料</RouterLink>
+                <RouterLink class="nav-link" to="/user/orders">我的訂單</RouterLink>
+            </nav>
+        </div>
         <RouterView />
     </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.banner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include media-breakpoint-up(lg) {
+        height: 384px;
+    }
+
+    // 頭像
+    img.img-avatar {
+        width: 144px;
+        height: 144px;
+    }
+}
+
+nav {
+    .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &.active {
+            color: $primary;
+
+            &::after {
+                margin-top: 0.5rem;
+                content: "";
+                height: 4px;
+                width: 32px;
+                border-radius: 0.625rem;
+                background-color: $primary;
+            }
+        }
+    }
+}
+</style>
