@@ -67,7 +67,7 @@ function toggleOffcanvasNavbar(method: "show" | "hide") :void {
                             <li class="nav-item d-none d-lg-block dropdown">
                                 <RouterLink class="nav-link" to="/login'" v-if="!userInfo">會員登入</RouterLink>
                                 <template v-else>
-                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle flex-row" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <font-awesome-icon icon="fa-regular fa-circle-user" class="me-2 icon-size" />
                                         {{ userInfo.name }}
                                     </a>

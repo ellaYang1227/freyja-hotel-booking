@@ -10,7 +10,7 @@ const { getToken, logout } = AuthStore();
 
 const baseConfig: AxiosRequestConfig = {
     baseURL: VITE_API_ROOT,
-    timeout: 60000
+    //timeout: 60000
 }
 
 // 創建 axios 實例
@@ -60,8 +60,8 @@ bacsRequest.interceptors.response.use(
                 break;
             case 400:
             case 404:
-                errorMsg = name === "login" ? message : "找不到該筆資料";
-                isBackPage = true;
+                errorMsg = name === "login" || name === "userEdit" ? message : "找不到該筆資料";
+                isBackPage = name === "login" || name === "userEdit" ? false : true;
                 break;
             default:
                 errorMsg = "發生不明錯誤，請重新操作";

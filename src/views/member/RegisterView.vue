@@ -47,13 +47,14 @@ async function nextStep(values: RegisterStep1Form): Promise<void> {
 
 const { signup } = UserStore();
 async function handleSubmit(values: UserInfoBasic): Promise<void> {
-    step2FormDate.value = values;
-    const newStep1FormDate :any = { ...step1FormDate.value };
-    delete newStep1FormDate.confirmPassword;
-    await signup({ 
-        ...newStep1FormDate, 
-        ...step2FormDate.value
-    });
+    console.log(values)
+    // step2FormDate.value = values;
+    // const newStep1FormDate :any = { ...step1FormDate.value };
+    // delete newStep1FormDate.confirmPassword;
+    // await signup({ 
+    //     ...newStep1FormDate, 
+    //     ...step2FormDate.value
+    // });
 }
 </script>
 
@@ -78,14 +79,18 @@ async function handleSubmit(values: UserInfoBasic): Promise<void> {
             </div>
         </div>
         <section class="d-grid gap-4">
-            <EmailAndPwdForm v-show="currentStep === 1" :formDate="step1FormDate" :registeredEmail="registeredEmail" @handleSubmit="nextStep" v-slot="slotProps">
-                <button class="btn btn-primary" :disabled="slotProps.disabled">下一步</button>
-            </EmailAndPwdForm>
-            <UserInfoFrom v-show="currentStep === 2" :formDate="step2FormDate" @handleSubmit="handleSubmit" >
-                <template #registerBtn=slotProps>
-                    <button class="btn btn-primary" :disabled="slotProps.disabled">完成註冊</button>
-                </template>
-            </UserInfoFrom>
+            <div v-show="currentStep === 1" >
+                <EmailAndPwdForm from="register" :formDate="step1FormDate" :registeredEmail="registeredEmail" @handleSubmit="nextStep" v-slot="slotProps">
+                    <button class="btn btn-primary w-100" :disabled="slotProps.disabled">下一步</button>
+                </EmailAndPwdForm>
+            </div>
+            <div v-show="currentStep === 2" >
+                <UserInfoFrom :formDate="step2FormDate" @handleSubmit="handleSubmit" >
+                    <template #registerBtn=slotProps>
+                        <button class="btn btn-primary" :disabled="slotProps.disabled">完成註冊</button>
+                    </template>
+                </UserInfoFrom>
+            </div>
             <div class="text-white d-flex gap-2">
                 已經有會員了嗎？
                 <RouterLink class="text-link" to="/login">立即登入</RouterLink>

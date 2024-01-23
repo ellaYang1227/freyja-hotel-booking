@@ -14,7 +14,7 @@ export const swalPopup = Swal.mixin({
     showConfirmButton: false,
     showCancelButton: true,
     cancelButtonText: "關閉",
-    //timer: 3000,
+    timer: 3000,
     timerProgressBar: true,
     reverseButtons: true
 });
