@@ -5,7 +5,7 @@ import UserStore from "@/stores/UserStore";
 import LoadingStore from "@/stores/LoadingStore";
 import EmailAndPwdForm from "@/components/forms/EmailAndPwdForm.vue";
 import UserInfoFrom from "@/components/forms/UserInfoFrom.vue";
-import { ChangePasswordForm, EditMyInfoForm } from "@/interfaces/UserForm";
+import { ChangePasswordForm } from "@/interfaces/UserForm";
 import { UserInfoBasic } from "@/interfaces/User";
 import { zipcodeOptions } from "@/data/ZipcodeOptions";
 import { zhTwDateTransform } from "@/handle-formats/HandleDate";
@@ -50,7 +50,6 @@ async function changePwd(values: ChangePasswordForm): Promise<void> {
 }
 
 // 修改個人資料
-console.log(userInfo)
 const editMyInfoFormDate = ref<UserInfoBasic>({
     name: userInfo?.name || "",
     phone: userInfo?.phone || "",
@@ -62,18 +61,28 @@ const editMyInfoFormDate = ref<UserInfoBasic>({
 });
 
 // 取得完整地址
-const fullAddress = computed<string>(() => {
-    const { detail, zipcode} = editMyInfoFormDate.value.address;
+// const fullAddress = computed<string>(() => {
+//     const find = zipcodeOptions.find(option => option.zipcode === editMyInfoFormDate.value.address.zipcode);
+//     return `${find?.county}${find?.city}${editMyInfoFormDate.value.address.detail}`;
+// });
+
+function getFullAddress(address: UserInfoBasic["address"]) {
+    const { zipcode, detail } = address;
     const find = zipcodeOptions.find(option => option.zipcode === zipcode);
     return `${find?.county}${find?.city}${detail}`;
-});
+}
 
 async function sendEditMyinfo(values: UserInfoBasic): Promise<void> {
-    console.log(values)
-    const success = await editMyinfo({...values, userId });
-    console.log(success)
-    if (success) { changeEditStatus("editMyinfo") }
+    console.log(values.address.detail)
+    editMyInfoFormDate.value = JSON.parse(JSON.stringify(values));
+    changeEditStatus("editMyinfo");
     hideLoading();
+    // const result = await editMyinfo({...values, userId });
+    // if (result) { 
+    //     editMyInfoFormDate.value = values;
+    //     changeEditStatus("editMyinfo"); 
+    // }
+    // hideLoading();
 }
 </script>
 
@@ -127,7 +136,7 @@ async function sendEditMyinfo(values: UserInfoBasic): Promise<void> {
                             </li>
                             <li class="d-grid gap-2">
                                 <span class="d-block">地址</span>
-                                <strong class="text-title text-neutral">{{ fullAddress }}</strong>
+                                <strong class="text-title text-neutral">{{ getFullAddress(editMyInfoFormDate.address) }}</strong>
                             </li>
                         </ul>
                         <section>

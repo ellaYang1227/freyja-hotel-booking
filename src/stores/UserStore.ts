@@ -5,7 +5,7 @@ import { setSwalFire } from "@/plugins/Sweetalert2";
 import { LoginForm, RegisterForm, ChangePasswordForm, EditMyInfoForm } from "@/interfaces/UserForm";
 import { UserInfo } from "@/interfaces/User";
 import AuthStore from "@/stores/AuthStore";
-const { changeCookie } = AuthStore();
+const { changeCookie, setStorageSpecifyData } = AuthStore();
 
 export default defineStore("userStore", () => {
     /**
@@ -62,9 +62,10 @@ export default defineStore("userStore", () => {
     function editMyinfo(body: EditMyInfoForm): Promise<boolean> {
         return bacsRequest
             .put(`user`, { ...body })
-            .then((result) => {
+            .then(({ result }: any) => {
                 console.log(result)
-                setSwalFire("popup", "success", "修改密碼成功", "下次登入需使用新密碼");
+                setStorageSpecifyData("user", result)
+                setSwalFire("toast", "success", "修改成功", "修改基本資料成功");
                 return Promise.resolve(true);
             })
             .catch(err => Promise.reject(false));

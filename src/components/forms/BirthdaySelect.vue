@@ -86,7 +86,7 @@ watch<any, any>(
     <div class="row gx-2 align-items-end">
         <section class="col d-grid gap-2">
             <label :for="formSchema.birthdaySchema_year.name" class="form-label" :class="{ 'text-white': route.name === 'register' }">{{ formSchema.birthdaySchema_year.label }}</label>
-            <Field v-model="year" :id="formSchema.birthdaySchema_year.name" :name="formSchema.birthdaySchema_year.name" class="form-select" :as="formSchema.birthdaySchema_year.as" @change="resetSelected('year')"
+            <Field v-model="year" :id="formSchema.birthdaySchema_year.name" :name="formSchema.birthdaySchema_year.name" class="form-select" :as="formSchema.birthdaySchema_year.as" @change="resetSelected('year')">
                 <option v-for="option in yearOptions" :key="option" :value="option">{{ option }} 年</option>
             </Field>
         </section>
