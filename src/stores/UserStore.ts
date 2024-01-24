@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import router from "@/router/index";
 import { bacsRequest } from "@/plugins/AxiosBase";
 import { setSwalFire } from "@/plugins/Sweetalert2";
-import { LoginForm, RegisterForm, ChangePasswordForm } from "@/interfaces/UserForm";
+import { LoginForm, RegisterForm, ChangePasswordForm, EditMyInfoForm } from "@/interfaces/UserForm";
 import { UserInfo } from "@/interfaces/User";
 import AuthStore from "@/stores/AuthStore";
 const { changeCookie } = AuthStore();
@@ -42,13 +42,28 @@ export default defineStore("userStore", () => {
     /**
      * 修改密碼
      * 
-     * @param body 註冊資料
+     * @param body 修改密碼資料
      */
     function changePassword(body: ChangePasswordForm): Promise<boolean> {
         return bacsRequest
             .put(`user`, { ...body })
             .then(({ status }) => {
-                //if()
+                setSwalFire("popup", "success", "修改密碼成功", "下次登入需使用新密碼");
+                return Promise.resolve(true);
+            })
+            .catch(err => Promise.reject(false));
+    }
+
+    /**
+     * 修改會員資料
+     * 
+     * @param body 會員資料
+     */
+    function editMyinfo(body: EditMyInfoForm): Promise<boolean> {
+        return bacsRequest
+            .put(`user`, { ...body })
+            .then((result) => {
+                console.log(result)
                 setSwalFire("popup", "success", "修改密碼成功", "下次登入需使用新密碼");
                 return Promise.resolve(true);
             })
@@ -58,6 +73,7 @@ export default defineStore("userStore", () => {
     return {
         login,
         signup,
-        changePassword
+        changePassword,
+        editMyinfo
     }
 });

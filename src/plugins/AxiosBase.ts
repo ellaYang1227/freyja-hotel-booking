@@ -58,6 +58,11 @@ bacsRequest.interceptors.response.use(
                 errorMsg = "您的身分驗證失敗，請重新登入";
                 isRedirectLogin = true;
                 break;
+            case 403:
+                title = "驗證失敗";
+                errorMsg = message;
+                isRedirectLogin = true;
+                break;
             case 400:
             case 404:
                 errorMsg = name === "login" || name === "userEdit" ? message : "找不到該筆資料";

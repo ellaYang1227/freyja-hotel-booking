@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 import { Field } from "vee-validate";
 import { computed, ref, watch } from "vue";
 import { formSchema } from "@/data/FormSchema";
 import { UserInfoBasic } from "@/interfaces/User";
+import { dateTransform } from "@/handle-formats/HandleDate";
+
+const route = useRoute();
 
 interface Props {
     modelValue: UserInfoBasic["birthday"]
@@ -18,7 +22,7 @@ const day = ref<number | null>(null);
 watch<any, any>(
   () => props.modelValue,
   (newVal: UserInfoBasic["birthday"]) => {
-    newVal = newVal || "1990/8/15";
+    newVal = newVal ? dateTransform(newVal) : "1990/8/15";
     newVal.split("/").forEach((item:string, index:number) => {
         switch(index) {
             case 0: 
@@ -81,9 +85,8 @@ watch<any, any>(
 <template>
     <div class="row gx-2 align-items-end">
         <section class="col d-grid gap-2">
-            <label :for="formSchema.birthdaySchema_year.name" class="form-label text-white">{{ formSchema.birthdaySchema_year.label }}</label>
+            <label :for="formSchema.birthdaySchema_year.name" class="form-label" :class="{ 'text-white': route.name === 'register' }">{{ formSchema.birthdaySchema_year.label }}</label>
             <Field v-model="year" :id="formSchema.birthdaySchema_year.name" :name="formSchema.birthdaySchema_year.name" class="form-select" :as="formSchema.birthdaySchema_year.as" @change="resetSelected('year')"
-            >
                 <option v-for="option in yearOptions" :key="option" :value="option">{{ option }} 年</option>
             </Field>
         </section>
