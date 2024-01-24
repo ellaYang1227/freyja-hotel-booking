@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { logo, LINE, IG } from "@/data/ImagePaths";
+import { logo, line_mobile, line2, LINE, IG } from "@/data/ImagePaths";
 const { VITE_COMPANY_NAME } = import.meta.env; 
 </script>
 
 <template>
+    <img :src="line_mobile" :alt="VITE_COMPANY_NAME" class="line-img d-lg-none">
+    <img :src="line2" :alt="VITE_COMPANY_NAME" class="line-img d-none d-lg-block">
     <div class="container-lg pt-12 pb-12 pb-md-14 text-white d-grid gap-12">
         <div class="row row-cols-1 row-cols-md-2 justify-content-between d-grid d-md-flex gap-8 gap-md-0">
             <div class="col d-grid gap-8">
@@ -54,6 +56,15 @@ const { VITE_COMPANY_NAME } = import.meta.env;
 </template>
 
 <style lang="scss">
+img.line-img {
+    object-fit: fill;
+    height: 84px;
+
+    @include media-breakpoint-up(lg) {
+        height: 188px;
+    }
+}
+
 img.logo {
     width: auto;
     height: 72px;

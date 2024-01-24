@@ -17,7 +17,7 @@ hideLoading();
     </div>
     <div class="container-lg pb-8 pb-lg-14">
         <div class="py-8 py-lg-12">
-            <nav class="nav">
+            <nav class="nav customize-tabs">
                 <RouterLink class="nav-link" to="/user/edit">個人資料</RouterLink>
                 <RouterLink class="nav-link" to="/user/orders">我的訂單</RouterLink>
             </nav>
@@ -50,13 +50,14 @@ hideLoading();
     }
 }
 
-nav {
+.customize-tabs {
     .nav-link {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        &.active {
+        &.active,
+        &:hover {
             color: $primary;
 
             &::after {

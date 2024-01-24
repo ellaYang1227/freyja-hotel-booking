@@ -68,12 +68,12 @@ watch<any, any>(
     <div class="row gx-2 align-items-end">
         <section class="col d-grid gap-2">
             <label for="county" class="form-label" :class="{ 'text-white': route.name === 'register' }">{{ formSchema.addressSchema_zipcode.label }}</label>
-            <Field v-model="county" id="county" name="county" class="form-control" :as="formSchema.addressSchema_zipcode.as" >
+            <Field v-model="county" id="county" name="county" class="form-select" :as="formSchema.addressSchema_zipcode.as" >
                 <option v-for="option in countyOptions" :key="option.county" :value="option.county">{{ option.county }}</option>
             </Field>
         </section>
         <section class="col">
-            <Field v-model="zipcode" :name="formSchema.addressSchema_zipcode.name" class="form-control" :as="formSchema.addressSchema_zipcode.as">
+            <Field v-model="zipcode" :name="formSchema.addressSchema_zipcode.name" class="form-select" :as="formSchema.addressSchema_zipcode.as">
             <option v-for="option in cityOptions" :key="option.zipcode" :value="option.zipcode">{{ option.city }}</option>
             </Field>
         </section>
