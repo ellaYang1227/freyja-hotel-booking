@@ -49,6 +49,11 @@ label.form-check-label {
     padding-bottom: 0;
     border-width: 0;
 }
+
+input.form-check-input:hover {
+    box-shadow: 0px 0px 0px 0.125rem rgba($primary, 0.2);
+}
+
 /*
 * ==========================================================================
 * 共用

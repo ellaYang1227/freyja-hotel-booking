@@ -82,19 +82,19 @@ watch<any, any>(
     <div class="row gx-2 align-items-end">
         <section class="col d-grid gap-2">
             <label :for="formSchema.birthdaySchema_year.name" class="form-label text-white">{{ formSchema.birthdaySchema_year.label }}</label>
-            <Field v-model="year" :id="formSchema.birthdaySchema_year.name" :name="formSchema.birthdaySchema_year.name" class="form-control" :as="formSchema.birthdaySchema_year.as" @change="resetSelected('year')"
+            <Field v-model="year" :id="formSchema.birthdaySchema_year.name" :name="formSchema.birthdaySchema_year.name" class="form-select" :as="formSchema.birthdaySchema_year.as" @change="resetSelected('year')"
             >
                 <option v-for="option in yearOptions" :key="option" :value="option">{{ option }} 年</option>
             </Field>
         </section>
         <section class="col">
-            <Field v-model="month" :name="formSchema.birthdaySchema_month.name" class="form-control" :as="formSchema.birthdaySchema_month.as" @change="resetSelected('month')"
+            <Field v-model="month" :name="formSchema.birthdaySchema_month.name" class="form-select" :as="formSchema.birthdaySchema_month.as" @change="resetSelected('month')"
             >
                 <option v-for="option in 12" :key="option" :value="option">{{ option }} 月</option>
             </Field>
         </section>
         <section class="col">
-            <Field v-model="day" :name="formSchema.birthdaySchema_day.name" class="form-control" :as="formSchema.birthdaySchema_day.as"
+            <Field v-model="day" :name="formSchema.birthdaySchema_day.name" class="form-select" :as="formSchema.birthdaySchema_day.as"
             >
                 <option v-for="option in dayOptions" :key="option" :value="option">{{ option }} 日</option>
             </Field>
