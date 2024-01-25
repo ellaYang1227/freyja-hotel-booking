@@ -21,7 +21,7 @@ const isAgree = ref<boolean>(false);
 const props = defineProps<UserInfoFromProps>();
 const { formDate } = props;
 
-const { errors, values, meta, validate } = useForm({
+const { errors, values, meta, validate, setValues } = useForm({
     initialValues: formDate,
     validationSchema: toTypedSchema(object({
         name: string()
@@ -61,8 +61,10 @@ function sendDataToParent() {
 watch<any, any>(
     () => props.formDate,
     async (newVal: UserInfoFromProps["formDate"]) => {
-        console.log(newVal)
-        if(newVal) { await validate() }
+        if(newVal) { 
+            await validate();
+            if(props.from !== "register") { setValues(newVal)}
+        }
     },
     { 
         immediate: true,
@@ -110,7 +112,6 @@ watch<any, any>(
             </div>
             <!-- submit 按鈕 -->
             <section class="mt-6 mt-lg-8" :class="props.from === 'register' ? 'mt-8' : 'mt-6 mt-lg-8'">
-                {{ meta  }}
                 <slot :disabled="!meta.valid || !isAgree" name="registerBtn"></slot>
                 <slot :disabled="!meta.valid"></slot>
             </section>

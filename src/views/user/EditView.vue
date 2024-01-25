@@ -5,7 +5,7 @@ import UserStore from "@/stores/UserStore";
 import LoadingStore from "@/stores/LoadingStore";
 import EmailAndPwdForm from "@/components/forms/EmailAndPwdForm.vue";
 import UserInfoFrom from "@/components/forms/UserInfoFrom.vue";
-import { ChangePasswordForm, EditMyInfoForm } from "@/interfaces/UserForm";
+import { ChangePasswordForm } from "@/interfaces/UserForm";
 import { UserInfoBasic } from "@/interfaces/User";
 import { zipcodeOptions } from "@/data/ZipcodeOptions";
 import { zhTwDateTransform } from "@/handle-formats/HandleDate";
@@ -41,16 +41,13 @@ const changePwdFormDate = ref<ChangePasswordForm>({
 });
 
 async function changePwd(values: ChangePasswordForm): Promise<void> {
-    console.log(values)
     delete values.confirmPassword;
     const success = await changePassword(values);
-    console.log(success)
     if(success) { changeEditStatus("changePwd") }
     hideLoading();
 }
 
 // 修改個人資料
-console.log(userInfo)
 const editMyInfoFormDate = ref<UserInfoBasic>({
     name: userInfo?.name || "",
     phone: userInfo?.phone || "",
@@ -63,16 +60,16 @@ const editMyInfoFormDate = ref<UserInfoBasic>({
 
 // 取得完整地址
 const fullAddress = computed<string>(() => {
-    const { detail, zipcode} = editMyInfoFormDate.value.address;
-    const find = zipcodeOptions.find(option => option.zipcode === zipcode);
-    return `${find?.county}${find?.city}${detail}`;
+    const find = zipcodeOptions.find(option => option.zipcode === editMyInfoFormDate.value.address.zipcode);
+    return `${find?.county}${find?.city}${editMyInfoFormDate.value.address.detail}`;
 });
 
 async function sendEditMyinfo(values: UserInfoBasic): Promise<void> {
-    console.log(values)
-    const success = await editMyinfo({...values, userId });
-    console.log(success)
-    if (success) { changeEditStatus("editMyinfo") }
+    const result = await editMyinfo({...values, userId });
+    if (result) { 
+        editMyInfoFormDate.value = JSON.parse(JSON.stringify(values));
+        changeEditStatus("editMyinfo"); 
+    }
     hideLoading();
 }
 </script>
@@ -115,15 +112,15 @@ async function sendEditMyinfo(values: UserInfoBasic): Promise<void> {
                         <ul class="d-grid gap-4 gap-lg-6 list-unstyled mb-0">
                             <li class="d-grid gap-2">
                                 <span class="d-block">姓名</span>
-                                <strong class="text-title text-neutral">{{ userInfo?.name }}</strong>
+                                <strong class="text-title text-neutral">{{ editMyInfoFormDate.name }}</strong>
                             </li>
                             <li class="d-grid gap-2">
                                 <span class="d-block">手機號碼</span>
-                                <strong class="text-title text-neutral">{{ userInfo?.phone }}</strong>
+                                <strong class="text-title text-neutral">{{ editMyInfoFormDate.phone }}</strong>
                             </li>
                             <li class="d-grid gap-2">
                                 <span class="d-block">生日</span>
-                                <strong class="text-title text-neutral" v-if="userInfo">{{ zhTwDateTransform(userInfo.birthday, "年月日") }}</strong>
+                                <strong class="text-title text-neutral" v-if="userInfo">{{ zhTwDateTransform(editMyInfoFormDate.birthday, "年月日") }}</strong>
                             </li>
                             <li class="d-grid gap-2">
                                 <span class="d-block">地址</span>

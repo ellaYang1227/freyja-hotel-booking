@@ -7,8 +7,8 @@ import { logo } from "@/data/ImagePaths";
 import * as bootstrap from "bootstrap";
 import Offcanvas from "bootstrap/js/dist/offcanvas";
 const { VITE_COMPANY_NAME } = import.meta.env;
-const { getStorageSpecifyData, logout } = AuthStore();
-const userInfo = getStorageSpecifyData("user");
+const authStore = AuthStore();
+const { logout } = authStore;
 
 // 取得 routeName
 const route = useRoute();
@@ -62,14 +62,14 @@ function toggleOffcanvasNavbar(method: "show" | "hide") :void {
                                 <RouterLink class="nav-link" to="/rooms" @click="toggleOffcanvasNavbar('hide')">客房旅宿</RouterLink>
                             </li>
                             <li class="nav-item d-lg-none">
-                                <RouterLink class="nav-link" :to="userInfo ? '/user/edit' : '/login'" @click="toggleOffcanvasNavbar('hide')">{{ userInfo ? "我的帳戶" : "會員登入" }}</RouterLink>
+                                <RouterLink class="nav-link" :to="authStore.userInfo ? '/user/edit' : '/login'" @click="toggleOffcanvasNavbar('hide')">{{ authStore.userInfo ? "我的帳戶" : "會員登入" }}</RouterLink>
                             </li>
                             <li class="nav-item d-none d-lg-block dropdown">
-                                <RouterLink class="nav-link" to="/login'" v-if="!userInfo">會員登入</RouterLink>
+                                <RouterLink class="nav-link" to="/login'" v-if="!authStore.userInfo">會員登入</RouterLink>
                                 <template v-else>
                                     <a class="nav-link dropdown-toggle flex-row" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <font-awesome-icon icon="fa-regular fa-circle-user" class="me-2 icon-size" />
-                                        {{ userInfo.name }}
+                                        {{ authStore.userInfo.name }}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                         <li>

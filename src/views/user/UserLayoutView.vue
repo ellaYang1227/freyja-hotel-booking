@@ -2,17 +2,17 @@
 import { hero, user1 } from "@/data/ImagePaths";
 import AuthStore from "@/stores/AuthStore";
 import LoadingStore from "@/stores/LoadingStore";
-const { userInfo } = AuthStore();
+const authStore = AuthStore();
 const { hideLoading } = LoadingStore();
 hideLoading();
 </script>
 
 <template>
     <div class="banner">
-        <img :src="hero" :alt="userInfo?.name" class="position-absolute" />
+        <img :src="hero" :alt="authStore.userInfo?.name" class="position-absolute" />
         <div class="container-lg d-grid d-lg-flex align-items-center gap-4 gap-lg-6 position-absolute">
-            <img :src="user1" :alt="userInfo?.name" class="img-avatar" />
-            <h1 class="text-white">Hello，{{ userInfo?.name }}</h1>
+            <img :src="user1" :alt="authStore.userInfo?.name" class="img-avatar" />
+            <h1 class="text-white">Hello，{{ authStore.userInfo?.name }}</h1>
         </div>
     </div>
     <div class="container-lg pb-8 pb-lg-14">
