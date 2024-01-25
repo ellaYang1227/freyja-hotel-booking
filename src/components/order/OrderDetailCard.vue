@@ -36,16 +36,16 @@ function getTotal(orderDetail: OrderDetail): string {
 </script>
 <template>
     <div class="card rounded-3 border-0">
-        <div class="card-body p-3 p-lg-6">
-            <h5 class="mb-4 mb-lg-6" v-if="isHistory">歷史訂單</h5>
-            <ul class="list-group list-group-flush d-grid gap-4 gap-lg-6">
+        <div class="card-body p-4 p-lg-8">
+            <h5 class="mb-6 mb-lg-8" v-if="isHistory">歷史訂單</h5>
+            <ul class="list-group list-group-flush d-grid gap-6 gap-lg-8">
                 <!-- 沒有資料 -->
                 <li class="list-group-item p-0" v-if="!filterOrderDetails.length">
                     <template v-if="!isHistory">
                         <span class="text-neutral-80 mb-2 d-block">預訂參考編號：</span>
                         <h5 class="mb-0">即將來的行程</h5>
                     </template>
-                    <div class="text-center text-primary-80 my-4 my-lg-6">
+                    <div class="text-center text-primary-80 my-6 my-lg-8">
                         <font-awesome-icon icon="fa-solid fa-inbox" size="4x" />
                         <p class="mb-0 mt-2">沒有資料</p>
                     </div>
@@ -59,15 +59,8 @@ function getTotal(orderDetail: OrderDetail): string {
                     class="list-group-item p-0"
                     :class="{ 'none-border-style': index == 2 && !isShowAll }"
                     >
-                    <ul class="list-group list-group-flush d-grid gap-4 gap-lg-6">
-                        <li
-                        class="list-group-item px-0 pt-0"
-                        :class="
-                            isHistory && index === filterOrderDetails.length - 1
-                            ? 'pb-0'
-                            : 'pb-4 pb-lg-6'
-                        "
-                        >
+                    <ul class="list-group list-group-flush d-grid gap-6 gap-lg-8">
+                        <li class="list-group-item px-0 pt-0 pb-6 pb-lg-8">
                         <template v-if="!isHistory">
                             <span class="text-neutral-80 mb-2 d-block"
                             >預訂參考編號：{{ orderDetail._id }}</span
@@ -83,21 +76,20 @@ function getTotal(orderDetail: OrderDetail): string {
                             <img
                             :class="
                                 isHistory
-                                ? 'isHistoryImgSize me-lg-4 mb-4 mb-lg-0 mb-lg-4 mb-xl-0 flex-shrink-0'
-                                : 'my-4 my-lg-6'
+                                ? 'isHistoryImgSize me-lg-6 mb-6 mb-lg-0 mb-lg-6 mb-xl-0 flex-shrink-0'
+                                : 'my-6 my-lg-8'
                             "
                             :src="orderDetail.roomId.imageUrl"
                             class="rounded roomImgHeight"
                             :alt="orderDetail.roomId.name"
                             />
                             <ul class="list-unstyled mb-0">
-                                <li v-if="isHistory" class="text-neutral-80 mb-3">
+                                <li v-if="isHistory" class="text-neutral-80 mb-4">
                                     預訂參考編號：{{ orderDetail._id }}
                                 </li>
-                                <li class="fw-bold" :class="isHistory ? 'mb-3' : 'mb-4'">
-                                    <h6 class="mb-0 d-flex align-items-center">
-                                        {{ orderDetail.roomId.name }}
-                                        <template v-if="!isHistory">，{{ daysDifference(
+                                <li class="fw-bold" :class="isHistory ? 'mb-4' : 'mb-6'">
+                                    <h6 class="mb-0 d-flex align-items-center text-neutral-80">
+                                        {{ orderDetail.roomId.name }}<template v-if="!isHistory">，{{ daysDifference(
                                             orderDetail.checkInDate,
                                             orderDetail.checkOutDate
                                             )}}
@@ -106,7 +98,7 @@ function getTotal(orderDetail: OrderDetail): string {
                                         </template>
                                     </h6>
                                 </li>
-                                <li class="mb-3 d-grid gap-2" v-if="isHistory">
+                                <li class="mb-4 d-grid gap-2" v-if="isHistory">
                                     <span class="d-block">
                                     住宿天數：{{
                                         daysDifference(
@@ -115,11 +107,11 @@ function getTotal(orderDetail: OrderDetail): string {
                                     )}}
                                     </span>
                                     <span class="d-block">
-                                    住宿人數：{{ orderDetail.peopleNum }}位
+                                    住宿人數：{{ orderDetail.peopleNum }} 位
                                     </span>
                                 </li>
                                 <li
-                                    :class="isHistory ? 'mb-3' : 'mb-4 fw-bold'"
+                                    :class="isHistory ? 'mb-4' : 'mb-6 fw-bold'"
                                     class="d-grid gap-2"
                                 >
                                     <div class="d-flex align-items-center">
@@ -144,21 +136,21 @@ function getTotal(orderDetail: OrderDetail): string {
                         </div>
                         </li>
                         <!-- 提供細項 -->
-                        <li class="list-group-item p-0 d-grid gap-4 gap-lg-6" v-if="!isHistory">
-                            <div>
+                        <li class="list-group-item p-0 d-grid gap-6 gap-lg-8" v-if="!isHistory">
+                            <section>
                                 <ProvideItemsCard
                                 :isBorder="true"
                                 :info="orderDetail.roomId.facilityInfo"
                                 title="房內設備"
                                 />
-                            </div>
-                            <div>
+                            </section>
+                            <section>
                                 <ProvideItemsCard
                                 :isBorder="true"
                                 :info="orderDetail.roomId.amenityInfo"
                                 title="備品提供"
                                 />
-                            </div>
+                            </section>
                         </li>
                     </ul>
                     </li>
@@ -171,6 +163,12 @@ function getTotal(orderDetail: OrderDetail): string {
 </template>
 <style lang="scss">
 .roomImgHeight {
+    height: 220px;
+
+    @include media-breakpoint-up(lg) {
+        height: 240px;
+    }
+
     // 歷史專用 - 圖片尺寸
     &.isHistoryImgSize {
         width: 120px;
