@@ -40,14 +40,10 @@ const routeName = (route.name as string) || "";
         <strong v-else>{{ title }}</strong>
     </div>
     <div
-    class="card"
-    :class="{
-        'border-0': !isBorder,
-        'mt-4': routeName === 'rooms-success',
-        'mt-3 mt-lg-4': routeName !== 'rooms-success',
-    }"
+    class="card mt-6"
+    :class="{ 'border-0': !isBorder }"
     >
-        <div class="card-body">
+        <div class="card-body p-6">
             <ul
             class="list-unstyled mb-0 grid gap-2"
             :class="routeName === 'rooms-success' ? 'room-success' : 'room'"

@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { hero, user1 } from "@/data/ImagePaths";
 import AuthStore from "@/stores/AuthStore";
-import LoadingStore from "@/stores/LoadingStore";
 const authStore = AuthStore();
-const { hideLoading } = LoadingStore();
-hideLoading();
 </script>
 
 <template>

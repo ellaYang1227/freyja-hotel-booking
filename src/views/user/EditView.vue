@@ -20,6 +20,7 @@ interface IsEditStatus {
 }
 
 const userId = userInfo?._id || "";
+hideLoading();
 
 // 表單狀態
 const isEditStatus = ref<IsEditStatus>({ 

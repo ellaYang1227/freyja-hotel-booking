@@ -22,7 +22,7 @@
         &:disabled,
         &.disabled,
         fieldset:disabled & {
-            color: $neutral-60;
+            color: $btn-link-disabled-color;
         }
     }
 

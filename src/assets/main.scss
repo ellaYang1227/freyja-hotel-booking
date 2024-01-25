@@ -78,3 +78,15 @@ img {
 .icon-size {
     font-size: 1.5rem;
 }
+
+// 自訂 vr
+.customize-vr {
+    flex-shrink: 0;
+    background-color: $primary;
+    display: inline-block;
+    width: 4px;
+    min-height: 1.5rem;
+    margin-right: 0.75rem;
+    align-self: stretch;
+    border-radius: 0.625rem;
+}

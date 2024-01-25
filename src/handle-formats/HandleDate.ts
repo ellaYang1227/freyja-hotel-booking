@@ -33,10 +33,10 @@ export function zhTwDateTransform(date: Date | string, format: "月日星期" | 
     });
 
     if (format === "年月日") {
-        return formatDate.replace(/(\d{1,4})年(\d{1,2})月(\d{1,2})日 (.+)/, "$1 年 $2 月 $2 日");
+        return formatDate.replace(/(\d{1,4})年(\d{1,2})月(\d{1,2})日 (.+)/, "$1 年 $2 月 $3 日");
     }
 
-    return formatDate.replace(/(\d{1,2})月(\d{1,2})日 (.+)/, "$1 月 $2 日$3");
+    return formatDate.replace(/(\d{1,4})年(\d{1,2})月(\d{1,2})日 (.+)/, "$2 月 $3 日$4");
 }
 
 /**
@@ -59,4 +59,4 @@ export function dateTransform(date: Date | string): string {
  * @param date 日期參數
  * @returns e.g.=> Sun Jun 18 2023 08:00:00 GMT+0800 (台北標準時間)
  */
-const newDateTransform = (date: Date | string): Date => new Date(date);
+export const newDateTransform = (date: Date | string): Date => new Date(date);
