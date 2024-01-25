@@ -63,8 +63,8 @@ watch<any, any>(
     async (newVal: UserInfoFromProps["formDate"]) => {
         if(newVal) { 
             await validate();
-            setValues(newVal);
-         }
+            if(props.from !== "register") { setValues(newVal)}
+        }
     },
     { 
         immediate: true,

@@ -63,7 +63,6 @@ export default defineStore("userStore", () => {
         return bacsRequest
             .put(`user`, { ...body })
             .then(({ result }: any) => {
-                console.log(result)
                 setStorageSpecifyData("user", result)
                 setSwalFire("toast", "success", "修改成功", "修改基本資料成功");
                 return Promise.resolve(true);
