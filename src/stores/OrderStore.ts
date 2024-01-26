@@ -2,17 +2,18 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { bacsRequest } from "@/plugins/AxiosBase";
 import { OrderDetail } from "@/interfaces/Order";
+import { setSwalFire } from "@/plugins/Sweetalert2";
 
 export default defineStore("verifyStore", () => {
     const myOrders = ref<OrderDetail[]>([]);
     /**
-     * 取得自己的訂單列表(不包含取消訂單)
+     * 取得自己的訂單列表
      */
     function getMyOrders(): Promise<OrderDetail[]> {
         return bacsRequest
             .get(`orders`)
             .then(({ result }: any) => {
-                myOrders.value = (result as OrderDetail[]).filter(item => item.status === 0);
+                myOrders.value = result as OrderDetail[];
                 return Promise.resolve(myOrders.value);
             })
             .catch(err => Promise.reject(false));
@@ -28,7 +29,10 @@ export default defineStore("verifyStore", () => {
             .then(({ status }: any) => {
                 return getMyOrders();
             })
-            .then(result => Promise.resolve(true))
+            .then(result => {
+                setSwalFire("toast", "success", "取消訂單成功", "您的訂單已取消");
+                return Promise.resolve(true);
+            })
             .catch(err => Promise.reject(false));
     }
 
