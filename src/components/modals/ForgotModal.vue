@@ -92,7 +92,7 @@ const forgotModalEl = ref<HTMLDivElement>();
 const forgotModal = ref<Modal>();
 onMounted(() => {
     if (forgotModalEl.value) {
-        forgotModal.value = new bootstrap.Modal(forgotModalEl.value, { backdrop: false, keyboard: false });
+        forgotModal.value = new bootstrap.Modal(forgotModalEl.value, { backdrop: "static", keyboard: false });
     }
 });
 
@@ -120,8 +120,8 @@ defineExpose({
 </script>
 
 <template>
-    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotModal" @click="toggleForgotModal('show')">忘記密碼？</button>
-    <div class="modal fade" tabindex="-1" id="forgotModal" ref="forgotModalEl" aria-hidden="true" aria-labelledby="forgotModalElLabel">
+    <button type="button" class="btn btn-link" @click="toggleForgotModal('show')">忘記密碼？</button>
+    <div class="modal fade" tabindex="-1" ref="forgotModalEl" aria-hidden="true" aria-labelledby="forgotModalElLabel">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
