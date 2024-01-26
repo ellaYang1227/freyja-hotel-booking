@@ -60,12 +60,10 @@ http://localhost:5173/
 -   assets - 圖片、scss 共用樣式
 -   components - Vue 組件
 -   data - 資料
--   enums - TypeScript enum
 -   handle-formats 處理格式
 -   interfaces - TypeScript interface
 -   router - vue router
 -   stores - api 和狀態管理
--   types - TypeScript types
 -   views - Vue 網站頁面
 
 ## 專案技術
