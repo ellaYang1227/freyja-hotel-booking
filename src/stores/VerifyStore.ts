@@ -13,7 +13,7 @@ export default defineStore("verifyStore", () => {
         return bacsRequest
             .post(`verify/email`, { email })
             .then(({ result }: any) => Promise.resolve(result.isEmailExists))
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     /**
@@ -24,11 +24,11 @@ export default defineStore("verifyStore", () => {
     function generateEmailCode(email: Email): Promise<boolean> {
         return bacsRequest
             .post(`verify/generateEmailCode`, { email })
-            .then(({ status }: any) => {
+            .then(_result => {
                 setSwalFire("toast", "success", "驗證碼寄送成功", "請至您的 Email 收取您的驗證碼");
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     return {

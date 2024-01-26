@@ -1,5 +1,6 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+// import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import type { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { setSwalFire } from "@/plugins/Sweetalert2";
 import router from "@/router/index";
 const { VITE_API_ROOT } = import.meta.env;

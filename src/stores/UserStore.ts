@@ -19,7 +19,7 @@ export default defineStore("userStore", () => {
                 changeCookie("add", token, result);
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     /**
@@ -35,7 +35,7 @@ export default defineStore("userStore", () => {
                 router.push("/user/edit");
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     /**
@@ -46,11 +46,11 @@ export default defineStore("userStore", () => {
     function changePassword(body: ChangePasswordForm): Promise<boolean> {
         return bacsRequest
             .put(`user`, { ...body })
-            .then(({ status }) => {
+            .then(_result => {
                 setSwalFire("popup", "success", "修改密碼成功", "下次登入需使用新密碼");
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     /**
@@ -66,7 +66,7 @@ export default defineStore("userStore", () => {
                 setSwalFire("toast", "success", "修改成功", "修改基本資料成功");
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     /**
@@ -77,11 +77,11 @@ export default defineStore("userStore", () => {
     function forgot(body: ForgotForm): Promise<boolean> {
         return bacsRequest
             .post(`user/forgot`, { ...body })
-            .then(({ status }) => {
+            .then(_result => {
                 setSwalFire("toast", "success", "密碼重設成功", "請用新密碼登入");
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     return {

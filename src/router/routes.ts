@@ -46,7 +46,7 @@ export default [
     {
         path: "/guideline",
         name: "guideline",
-        component: () => import("@/views/GuidelineView.vue"),
+        component: () => import("@/views/guidelineView.vue"),
         meta: { title: "Guideline" }
     },
     {

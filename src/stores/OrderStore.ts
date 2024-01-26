@@ -16,7 +16,7 @@ export default defineStore("verifyStore", () => {
                 myOrders.value = result as OrderDetail[];
                 return Promise.resolve(myOrders.value);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     /**
@@ -26,14 +26,14 @@ export default defineStore("verifyStore", () => {
     function cancelOrder(orderId: OrderDetail['_id']): Promise<boolean> {
         return bacsRequest
             .delete(`orders/${orderId}`)
-            .then(({ status }: any) => {
+            .then(_result => {
                 return getMyOrders();
             })
-            .then(result => {
+            .then(_result => {
                 setSwalFire("toast", "success", "取消訂單成功", "您的訂單已取消");
                 return Promise.resolve(true);
             })
-            .catch(err => Promise.reject(false));
+            .catch(_err => Promise.reject(false));
     }
 
     return {

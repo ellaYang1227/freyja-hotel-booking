@@ -4,7 +4,7 @@ const { VITE_COMPANY_NAME } = import.meta.env;
 
 export const beforeEach = (
     to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
+    _from: RouteLocationNormalized,
     next: NavigationGuardNext
 ): void => {
     const { meta, path } = to;
