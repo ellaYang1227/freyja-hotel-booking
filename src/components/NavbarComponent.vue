@@ -55,7 +55,7 @@ function toggleOffcanvasNavbar(method: "show" | "hide") :void {
             </button>
             <div ref="offcanvasNavbarEl" class="offcanvas offcanvas-start" tabindex="-1" :class="{'d-lg-none': routeName === 'login' || routeName === 'register'}">
                 <div class="offcanvas-body d-flex align-items-center">
-                    <button class="btn-close d-lg-none" type="button" @click="toggleOffcanvasNavbar('hide')"></button>
+                    <button class="btn-close btn-close-white d-lg-none" type="button" @click="toggleOffcanvasNavbar('hide')"></button>
                     <div class="collapse navbar-collapse show">
                         <ul class="navbar-nav ms-auto align-items-lg-center gap-4 text-center">
                             <li class="nav-item">
