@@ -88,5 +88,12 @@ export const formSchema: FormSchema = {
         type: "text",
         as: "input",
         placeholder: "請輸入詳細地址"
+    },
+    codeSchema: {
+        name: "code",
+        label: "驗證碼",
+        type: "text",
+        as: "input",
+        placeholder: "請輸入驗證碼"
     }
 };

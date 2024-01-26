@@ -26,3 +26,9 @@ export interface ChangePasswordForm {
 export interface EditMyInfoForm extends UserInfoBasic {
     userId: UserId
 }
+
+export interface ForgotForm {
+    email: Email,
+    code: string,
+    newPassword: Password
+}

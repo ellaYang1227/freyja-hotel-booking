@@ -44,6 +44,7 @@ export default defineStore("LoadingStore", () => {
 
     return {
         isLoading,
+        isLoadingBtn,
         showLoading,
         hideLoading
     };

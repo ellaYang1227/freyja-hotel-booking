@@ -28,10 +28,7 @@ export default defineStore("verifyStore", () => {
             .then(({ status }: any) => {
                 return getMyOrders();
             })
-            .then(result => {
-                console.log(result)
-                return Promise.resolve(true);
-            })
+            .then(result => Promise.resolve(true))
             .catch(err => Promise.reject(false));
     }
 

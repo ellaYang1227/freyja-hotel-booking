@@ -23,7 +23,7 @@ export const swalToast = Swal.mixin({
     toast: true,
     showConfirmButton: false,
     position: "bottom-end",
-    timer: 1500,
+    timer: 3000,
     timerProgressBar: true
 });
 
