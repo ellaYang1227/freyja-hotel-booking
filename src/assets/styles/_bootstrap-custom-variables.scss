@@ -921,7 +921,7 @@ $input-focus-width: $input-btn-focus-width !default;
 $input-focus-box-shadow: $input-btn-focus-box-shadow !default;
 
 $input-placeholder-color: $neutral-60 !default;
-$input-plaintext-color: $black !default;
+$input-plaintext-color: $input-color !default;
 
 $input-height-border: calc(#{$input-border-width} * 2) !default; // stylelint-disable-line function-disallowed-list
 
@@ -1510,7 +1510,7 @@ $badge-border-radius: var(--#{$prefix}border-radius) !default;
 // Modals
 
 // scss-docs-start modal-variables
-$modal-inner-padding: $spacer !default;
+$modal-inner-padding: $grid-gutter-width / 2 !default;
 
 $modal-footer-margin-between: 0.5rem !default;
 
@@ -1520,10 +1520,10 @@ $modal-dialog-margin-y-sm-up: 1.75rem !default;
 $modal-title-line-height: $line-height-base !default;
 
 $modal-content-color: null !default;
-$modal-content-bg: var(--#{$prefix}body-bg) !default;
+$modal-content-bg: $white !default;
 $modal-content-border-color: var(--#{$prefix}border-color-translucent) !default;
-$modal-content-border-width: var(--#{$prefix}border-width) !default;
-$modal-content-border-radius: var(--#{$prefix}border-radius-lg) !default;
+$modal-content-border-width: 0 !default;
+$modal-content-border-radius: var(--#{$prefix}border-radius) !default;
 $modal-content-inner-border-radius: subtract($modal-content-border-radius, $modal-content-border-width) !default;
 $modal-content-box-shadow-xs: var(--#{$prefix}box-shadow-sm) !default;
 $modal-content-box-shadow-sm-up: var(--#{$prefix}box-shadow) !default;
@@ -1532,7 +1532,7 @@ $modal-backdrop-bg: $black !default;
 $modal-backdrop-opacity: 0.5 !default;
 
 $modal-header-border-color: var(--#{$prefix}border-color) !default;
-$modal-header-border-width: $modal-content-border-width !default;
+$modal-header-border-width: $border-width !default;
 $modal-header-padding-y: $modal-inner-padding !default;
 $modal-header-padding-x: $modal-inner-padding !default;
 $modal-header-padding: $modal-header-padding-y $modal-header-padding-x !default; // Keep this for backwards compatibility

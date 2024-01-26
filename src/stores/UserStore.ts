@@ -2,8 +2,7 @@ import { defineStore } from "pinia";
 import router from "@/router/index";
 import { bacsRequest } from "@/plugins/AxiosBase";
 import { setSwalFire } from "@/plugins/Sweetalert2";
-import { LoginForm, RegisterForm, ChangePasswordForm, EditMyInfoForm } from "@/interfaces/UserForm";
-import { UserInfo } from "@/interfaces/User";
+import { LoginForm, RegisterForm, ChangePasswordForm, EditMyInfoForm, ForgotForm } from "@/interfaces/UserForm";
 import AuthStore from "@/stores/AuthStore";
 const { changeCookie, setStorageSpecifyData } = AuthStore();
 
@@ -70,10 +69,26 @@ export default defineStore("userStore", () => {
             .catch(err => Promise.reject(false));
     }
 
+    /**
+     * 忘記密碼
+     * 
+     * @param body 修改密碼資料
+     */
+    function forgot(body: ForgotForm): Promise<boolean> {
+        return bacsRequest
+            .post(`user/forgot`, { ...body })
+            .then(({ status }) => {
+                setSwalFire("toast", "success", "密碼重設成功", "請用新密碼登入");
+                return Promise.resolve(true);
+            })
+            .catch(err => Promise.reject(false));
+    }
+
     return {
         login,
         signup,
         changePassword,
-        editMyinfo
+        editMyinfo,
+        forgot
     }
 });

@@ -4,12 +4,15 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { object, string } from "zod";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import ForgotModal from "@/components/ForgotModal.vue";
 import { formSchema } from "@/data/FormSchema";
 import { LoginForm } from "@/interfaces/UserForm";
 import AuthStore from "@/stores/AuthStore";
 import LoadingStore from "@/stores/LoadingStore";
 import UserStore from "@/stores/UserStore";
 
+// 取得 ForgotModal Ref
+const childForgotModalRef = ref<typeof ForgotModal>();
 const { getStorageSpecifyData, setStorageSpecifyData, removeStorageSpecifyData } = AuthStore();
 const { showLoading, hideLoading } = LoadingStore();
 const { login } = UserStore();
@@ -79,7 +82,8 @@ async function onSubmit(): Promise<void> {
                             <input class="form-check-input" type="checkbox" v-model="checkedRememberEmail" id="rememberEmail">
                             <label class="form-check-label text-white" for="rememberEmail">記住帳號</label>
                         </div>
-                        <button type="button" class="btn btn-link">忘記密碼？</button>
+                        <button type="button" class="btn btn-link" @click="childForgotModalRef?.toggleForgotModal('show')">忘記密碼？</button>
+                        <ForgotModal ref="childForgotModalRef" />
                     </div>
                 </div>
                 <button class="btn btn-primary" :disabled="!meta.valid">會員登入</button>

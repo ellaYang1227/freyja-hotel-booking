@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { bacsRequest } from "@/plugins/AxiosBase";
-import { LoginForm } from "@/interfaces/UserForm";
-import { UserInfo } from "@/interfaces/User";
 import { Email } from "@/interfaces/UserForm";
+import { setSwalFire } from "@/plugins/Sweetalert2";
 
 export default defineStore("verifyStore", () => {
     /**
@@ -13,9 +12,7 @@ export default defineStore("verifyStore", () => {
     function verifyEmail(email: Email): Promise<boolean> {
         return bacsRequest
             .post(`verify/email`, { email })
-            .then(({ result }: any) => {
-                return Promise.resolve(result.isEmailExists);
-            })
+            .then(({ result }: any) => Promise.resolve(result.isEmailExists))
             .catch(err => Promise.reject(false));
     }
 
@@ -28,6 +25,7 @@ export default defineStore("verifyStore", () => {
         return bacsRequest
             .post(`verify/generateEmailCode`, { email })
             .then(({ status }: any) => {
+                setSwalFire("toast", "success", "驗證碼寄送成功", "請至您的 Email 收取您的驗證碼");
                 return Promise.resolve(true);
             })
             .catch(err => Promise.reject(false));

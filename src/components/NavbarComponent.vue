@@ -22,7 +22,7 @@ watch<any, any>(
 
 // 取得 offcanvas Navbar Element
 const offcanvasNavbarEl = ref<HTMLDivElement>();
-const offcanvasNavbar = ref<Offcanvas>()
+const offcanvasNavbar = ref<Offcanvas>();
 onMounted(() => {
     if(offcanvasNavbarEl.value) {
         offcanvasNavbar.value = new bootstrap.Offcanvas(offcanvasNavbarEl.value);
