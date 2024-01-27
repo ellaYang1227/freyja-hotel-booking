@@ -17,7 +17,7 @@ const county = ref<ZipcodeOption["county"]>();
 const zipcode = ref<ZipcodeOption["zipcode"]>();
 
 // 監聽 modelValue 更新 重設 county
-watch<any, any>(
+watch(
     () => props.modelValue,
     (modelValue: ZipcodeOption["zipcode"]) => {
         modelValue = modelValue || 800;
@@ -38,7 +38,7 @@ const countyOptions = computed<ZipcodeOption[]>(() => {
 const cityOptions = computed<ZipcodeOption[]>(() => zipcodeOptions.filter(option => option.county === county.value));
 
 // 監聽 縣市下的城市選項 更新
-watch<any, any>(
+watch(
     () => cityOptions.value,
     (newVal: ZipcodeOption[]) => {
         if (newVal) { 

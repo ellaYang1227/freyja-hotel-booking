@@ -21,7 +21,7 @@ onMounted(async (): Promise<void> => {
     await orderStore.getMyOrders();
 });
 
-watch<any, any>(
+watch(
     () => orderStore.myOrders,
     (newMyOrders: OrderDetail[]): void => {
         futureOrders.value = [];

@@ -1,7 +1,6 @@
 import LoadingStore from "@/stores/LoadingStore";
-import Swal from "sweetalert2/dist/sweetalert2.js";
+import Swal, { SweetAlertIcon, SweetAlertOptions } from "sweetalert2/dist/sweetalert2.js";
 type SwalStype = "toast" | "popup";
-type SwalIcon = "success" | "error" | "warning" | "info" | "question";
 
 const { hideLoading } = LoadingStore();
 
@@ -38,18 +37,18 @@ export const swalToast = Swal.mixin({
  * @param isHTML 是否 text 為 HTML 格式，預設 "false"
  * @param isCloseTimer 是否關閉計時器，預設 "false"
  */
-export function setSwalFire(stype: SwalStype, icon: SwalIcon, title: string, text: string, isHTML: boolean = false, isCloseTimer: boolean = false) {
+export function setSwalFire(stype: SwalStype, icon: SweetAlertIcon, title: string, text: string, isHTML: boolean = false, isCloseTimer: boolean = false) {
     hideLoading();
     const currentSwal = stype === "toast" ? swalToast : swalPopup;
-    const options: any = {
+    const options: SweetAlertOptions = {
         icon,
         title,
-        text: isHTML ? null : text,
-        html: isHTML ? text : null
+        text: isHTML ? undefined : text,
+        html: isHTML ? text : undefined
     };
 
     if (isCloseTimer) {
-        options.timer = null;
+        options.timer = undefined;
     }
 
     return currentSwal.fire(options);

@@ -33,7 +33,7 @@ const { value: confirmPassword } = useField("confirmPassword");
 hideLoading();
 
 // 監聽父元件更新的值
-watch<any, any>(
+watch(
     () => props.registeredEmail,
     async (newVal: EmailAndPwdFormProps["registeredEmail"]) => {
         if (newVal) { await validate() }

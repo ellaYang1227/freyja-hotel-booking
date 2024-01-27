@@ -58,7 +58,7 @@ function sendDataToParent() {
 }
 
 // 監聽父元件更新的值
-watch<any, any>(
+watch(
     () => props.formDate,
     async (newVal: UserInfoFromProps["formDate"]) => {
         if(newVal) { 

@@ -19,7 +19,7 @@ const month = ref<number | null>(null);
 const day = ref<number | null>(null);
 
 // 監聽 modelValue 更新 重設 year、month、day
-watch<any, any>(
+watch(
   () => props.modelValue,
   (newVal: UserInfoBasic["birthday"]) => {
     newVal = newVal ? dateTransform(newVal) : "1990/8/15";
@@ -72,7 +72,7 @@ function resetSelected(select: "year" | "month") :void {
 
 // 發送 model-value 值至父元件
 const emits = defineEmits<{ "update:model-value": [value: Props["modelValue"]] }>();
-watch<any, any>(
+watch(
     () => [year.value, month.value, day.value],
     () => {
         emits("update:model-value", `${year.value}/${month.value}/${day.value}`);
