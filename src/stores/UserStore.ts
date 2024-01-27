@@ -6,7 +6,7 @@ import { LoginForm, RegisterForm, ChangePasswordForm, EditMyInfoForm, ForgotForm
 import AuthStore from "@/stores/AuthStore";
 const { changeCookie, setStorageSpecifyData } = AuthStore();
 
-export default defineStore("userStore", () => {
+export default defineStore("UserStore", () => {
     /**
      * 登入
      * 

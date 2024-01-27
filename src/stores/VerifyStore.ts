@@ -3,7 +3,7 @@ import { bacsRequest } from "@/plugins/AxiosBase";
 import { Email } from "@/interfaces/UserForm";
 import { setSwalFire } from "@/plugins/Sweetalert2";
 
-export default defineStore("verifyStore", () => {
+export default defineStore("VerifyStore", () => {
     /**
      * 驗證信箱是否註冊過
      * 
