@@ -4,7 +4,7 @@ import { bacsRequest } from "@/plugins/AxiosBase";
 import { OrderDetail } from "@/interfaces/Order";
 import { setSwalFire } from "@/plugins/Sweetalert2";
 
-export default defineStore("verifyStore", () => {
+export default defineStore("orderStore", () => {
     const myOrders = ref<OrderDetail[]>([]);
     /**
      * 取得自己的訂單列表
