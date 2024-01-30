@@ -6,7 +6,7 @@
         <div class="col align-self-stretch d-none d-lg-block left-bg-img"></div>
         <div class="col bg-img-line">
             <div class="px-5 px-lg-0 flex-fill">
-                <div class="row justify-content-center align-items-center g-0">
+                <div class="row justify-content-center align-items-center g-0 pb-lg-5">
                     <div class="col-sm-auto">
                         <div class="form-width">
                             <RouterView />

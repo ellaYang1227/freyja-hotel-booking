@@ -16,6 +16,7 @@ const { showLoading, hideLoading } = LoadingStore();
 const { login } = UserStore();
 const { emailSchema, passwordSchema } = formSchema;
 const checkedRememberEmail = ref<boolean>(false);
+checkedRememberEmail.value = getStorageSpecifyData('email') ? true : false;
 
 const { errors, values, meta } = useForm({
     initialValues: {
