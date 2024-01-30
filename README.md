@@ -60,8 +60,9 @@ http://localhost:5173/
 -   assets - 圖片、scss 共用樣式
 -   components - Vue 組件
 -   data - 資料
--   handle-formats 處理格式
+-   handle-formats - 處理格式
 -   interfaces - TypeScript interface
+-   plugins - 套件
 -   router - vue router
 -   stores - api 和狀態管理
 -   views - Vue 網站頁面
